@@ -20,7 +20,7 @@ from airo_models.utils import AIRO_MODEL_NAMES
 
 print(AIRO_MODEL_NAMES)
 
->>> ['ur3e', 'ur5e', 'robotif_2f_85']
+>>> ['ur3e', 'ur5e', 'robotiq_2f_85']
 ```
 
 ### Local installation
@@ -28,3 +28,11 @@ print(AIRO_MODEL_NAMES)
 - clone this repo
 - create the conda environment `conda env create -f environment.yaml`
 - initialize the pre-commit hooks `pre-commit install`
+
+## Releasing
+Releasing to PyPi is done automatically by github actions when a new tag is pushed to the main branch.
+1. Update the version in `pyproject.toml`.
+2. ```git tag -a v0.1.0 -m "airo-models v0.1.0"```
+3. ```git push origin v0.1.0```
+
+This was set up following [this guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/) first and then [this guide](https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/).
