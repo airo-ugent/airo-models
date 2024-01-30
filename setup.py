@@ -1,6 +1,6 @@
 import setuptools
-from setuptools import find_packages
+from setuptools import find_namespace_packages
 
 setuptools.setup(
-    packages=find_packages(),
+    packages=find_namespace_packages(),
 )
