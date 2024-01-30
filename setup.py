@@ -11,4 +11,5 @@ setuptools.setup(
         "numpy",
     ],
     packages=find_packages(),
+    include_package_data=True,  # Without this URDFs & meshes are not included in non-editable pip install
 )
