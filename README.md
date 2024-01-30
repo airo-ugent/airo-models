@@ -2,8 +2,9 @@
 Curated URDFs and 3D models of the robots and gripper used at airo.
 
 ## Installation
+`airo-models` is available on PyPi and can be installed with pip:
 ```
-pip install git+https://github.com/airo-ugent/airo-models@main
+pip install airo-models
 ```
 
 ## Usage
