@@ -20,7 +20,7 @@ jobs:
         build
         --user
     - name: Build a binary wheel and a source tarball
-      run: python3 -m build airo-models --outdir dist/
+      run: python3 -m build . --outdir dist/
     - name: Store the distribution packages
       uses: actions/upload-artifact@v3
       with:
