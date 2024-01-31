@@ -44,7 +44,7 @@ def dict_to_xml_str(dict_: dict) -> str:
     return xmltodict.unparse(dict_, pretty=True, indent="  ")
 
 
-def delete_key(dict_: dict, key: str):
+def delete_key(dict_: dict, key: str) -> None:
     for k, v in list(dict_.items()):
         if k == key:
             del dict_[k]
@@ -56,7 +56,7 @@ def delete_key(dict_: dict, key: str):
                 delete_key(i, key)
 
 
-def replace_value(dict_: dict, key: str, value: str, new_value: str):
+def replace_value(dict_: dict, key: str, value: str, new_value: str) -> None:
     for k, v in dict_.items():
         if key == key and v == value:
             dict_[k] = new_value
@@ -68,7 +68,7 @@ def replace_value(dict_: dict, key: str, value: str, new_value: str):
                 replace_value(d, key, value, new_value)
 
 
-def make_paths_absolute(dict_: dict, urdf_path: str):
+def make_paths_absolute(dict_: dict, urdf_path: str) -> None:
     for key, value in dict_.items():
         if key == "@filename" and not os.path.isabs(value):
             dict_[key] = os.path.normpath(os.path.join(os.path.abspath(os.path.dirname(urdf_path)), value))
