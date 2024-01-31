@@ -1,6 +1,5 @@
 import os
-
-from airo_models.utils import AIRO_MODEL_NAMES, get_urdf_path
+import airo_models
 
 
 def test_existence():
@@ -10,6 +9,11 @@ def test_existence():
     pip install -e .
     pip install .
     """
-    for name in AIRO_MODEL_NAMES:
-        urdf_path = get_urdf_path(name)
+    for name in airo_models.AIRO_MODEL_NAMES:
+        urdf_path = airo_models.get_urdf_path(name)
+        assert os.path.exists(urdf_path), f"URDF file for {name} does not exist at {urdf_path}"
+
+    # Also test long-form import
+    for name in airo_models.files.AIRO_MODEL_NAMES:
+        urdf_path = airo_models.files.get_urdf_path(name)
         assert os.path.exists(urdf_path), f"URDF file for {name} does not exist at {urdf_path}"
