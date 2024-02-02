@@ -46,7 +46,10 @@ print(AIRO_MODEL_NAMES)
 ### Releasing
 Releasing to PyPi is done automatically by github actions when a new tag is pushed to the main branch.
 1. Update the version in `pyproject.toml`.
-2. ```git tag -a v0.1.0 -m "airo-models v0.1.0"```
-3. ```git push origin v0.1.0```
+2. ``` git add pyproject.toml```
+3. ``` git commit -m ""```
+4. ``` git push```
+5. ```git tag -a v0.1.0 -m "airo-models v0.1.0"```
+6. ```git push origin v0.1.0```
 
 This was set up following [this guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/) first and then [this guide](https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/).
