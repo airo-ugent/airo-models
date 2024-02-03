@@ -7,6 +7,7 @@ import airo_models.primitives as primitives  # noqa: F401
 import airo_models.urdf as urdf  # noqa: F401
 from airo_models.primitives.box import *  # noqa: F401, F403
 from airo_models.primitives.cylinder import *  # noqa: F401, F403
+from airo_models.primitives.mesh import *  # noqa: F401, F403
 from airo_models.primitives.sphere import *  # noqa: F401, F403
 
 # Not sure if this relative import is needed. Should investigate.

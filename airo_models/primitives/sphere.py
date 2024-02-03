@@ -1,6 +1,6 @@
 """Python functions to easily generate parametrized URDF spheres."""
 
-from airo_models.urdf import dict_to_xml_str, write_urdf_to_tempfile
+from airo_models.urdf import dict_to_xml_str, single_link_urdf_dict, write_urdf_to_tempfile
 
 
 def sphere_geometry_dict(radius: float) -> dict:
@@ -10,16 +10,7 @@ def sphere_geometry_dict(radius: float) -> dict:
 
 def sphere_dict(radius: float, name: str = "sphere") -> dict:
     geometry_dict = sphere_geometry_dict(radius)
-    sphere_dict_ = {
-        "robot": {
-            "@name": name,
-            "link": {
-                "@name": "base_link",
-                "visual": {"geometry": geometry_dict},
-                "collision": {"geometry": geometry_dict},
-            },
-        }
-    }
+    sphere_dict_ = single_link_urdf_dict(name, geometry_dict)
     return sphere_dict_
 
 

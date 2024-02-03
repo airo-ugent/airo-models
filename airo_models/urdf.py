@@ -1,4 +1,5 @@
 """Reading, writing and recurvise operations for URDFs, such as deleting keys or replacing values."""
+
 import os
 import tempfile
 
@@ -41,7 +42,7 @@ def write_urdf_to_tempfile(dict_: dict, original_urdf_path: str | None = None, p
 def dict_to_xml_str(dict_: dict) -> str:
     if not dict_:
         return ""
-    return xmltodict.unparse(dict_, pretty=True, indent="  ")
+    return xmltodict.unparse(dict_, pretty=True, indent="  ", short_empty_elements=True)
 
 
 def delete_key(dict_: dict, key: str) -> None:
@@ -78,3 +79,38 @@ def make_paths_absolute(dict_: dict, urdf_path: str) -> None:
         elif isinstance(value, list):
             for item in value:
                 make_paths_absolute(item, urdf_path)
+
+
+def single_link_urdf_dict(name: str, geometry_dict: dict) -> dict:
+    """Generate the basic structure of URDF for a single link with a given geometry.
+
+    Corresponds to this URDF:
+    ```xml
+    <robot name="name">
+        <link name="base_link">
+            <visual>
+                <geometry>
+                    ...
+                </geometry>
+            </visual>
+            <collision>
+                <geometry>
+                    ...
+                </geometry>
+            </collision>
+        </link>
+    </robot>
+    ```
+
+    Used by the functions that generate URDF primitives.
+    """
+    return {
+        "robot": {
+            "@name": name,
+            "link": {
+                "@name": "base_link",
+                "visual": {"geometry": geometry_dict},
+                "collision": {"geometry": geometry_dict},
+            },
+        }
+    }

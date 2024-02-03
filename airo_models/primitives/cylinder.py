@@ -1,6 +1,6 @@
 """Python functions to easily generate parametrized URDF cylinders."""
 
-from airo_models.urdf import dict_to_xml_str, write_urdf_to_tempfile
+from airo_models.urdf import dict_to_xml_str, single_link_urdf_dict, write_urdf_to_tempfile
 
 
 def cylinder_geometry_dict(length: float, radius: float) -> dict:
@@ -10,16 +10,7 @@ def cylinder_geometry_dict(length: float, radius: float) -> dict:
 
 def cylinder_dict(length: float, radius: float, name: str = "cylinder") -> dict:
     geometry_dict = cylinder_geometry_dict(length, radius)
-    cylinder_dict_ = {
-        "robot": {
-            "@name": name,
-            "link": {
-                "@name": "base_link",
-                "visual": {"geometry": geometry_dict},
-                "collision": {"geometry": geometry_dict},
-            },
-        }
-    }
+    cylinder_dict_ = single_link_urdf_dict(name, geometry_dict)
     return cylinder_dict_
 
 
