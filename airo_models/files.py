@@ -21,6 +21,8 @@ def get_urdf_path(name: str) -> str:
         "robotiq_2f_85": os.path.join(airo_models_dir, "grippers", "robotiq_2f_85", "urdf", "robotiq_2f_85.urdf"),
         "zed2i": os.path.join(airo_models_dir, "cameras", "zed2i", "zed2i.urdf"),
         "d435": os.path.join(airo_models_dir, "cameras", "realsense", "d435", "d435.urdf"),
+        "table8080": os.path.join(airo_models_dir, "environment", "tables", "table8080.urdf"),
+        "mounting_plate_ur3e": os.path.join(airo_models_dir, "environment", "mounting_plates", "mounting_plate_ur3e.urdf"),
     }
 
     if name in name_to_urdf_path:
