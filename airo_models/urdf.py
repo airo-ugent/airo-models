@@ -114,3 +114,14 @@ def single_link_urdf_dict(name: str, geometry_dict: dict) -> dict:
             },
         }
     }
+
+
+def make_static(dict_: dict) -> None:
+    """Make all joints in the URDF fixed and remove mimic and transmission keys."""
+
+    joint_types = ["revolute", "continuous", "prismatic", "floating", "planar"]
+    for joint_type in joint_types:
+        replace_value(dict_, "@type", joint_type, "fixed")
+
+    delete_key(dict_, "mimic")
+    delete_key(dict_, "transmission")
