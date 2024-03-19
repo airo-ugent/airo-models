@@ -150,7 +150,7 @@ def _get_robot_element_by_name(urdf_dict: dict, element_type: str, element_name:
     return None  # Element not found
 
 
-def get_link_by_name(urdf_dict: dict, link_name: str) -> str | None:
+def get_link_by_name(urdf_dict: dict, link_name: str) -> dict | None:
     """Searches for a URDF link with the specified name.
 
     Args:
