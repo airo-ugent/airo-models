@@ -69,10 +69,14 @@ def replace_value(dict_: dict, key: str, value: str, new_value: str) -> None:
                 replace_value(d, key, value, new_value)
 
 
+def make_path_absolute(rel_path: str, urdf_path: str) -> str:
+    return os.path.normpath(os.path.join(os.path.abspath(os.path.dirname(urdf_path)), rel_path))
+
+
 def make_paths_absolute(dict_: dict, urdf_path: str) -> None:
     for key, value in dict_.items():
         if key == "@filename" and not os.path.isabs(value):
-            dict_[key] = os.path.normpath(os.path.join(os.path.abspath(os.path.dirname(urdf_path)), value))
+            dict_[key] = make_path_absolute(value, urdf_path)
         # Recurse
         elif isinstance(value, dict):
             make_paths_absolute(value, urdf_path)
@@ -125,3 +129,48 @@ def make_static(dict_: dict) -> None:
 
     delete_key(dict_, "mimic")
     delete_key(dict_, "transmission")
+
+
+def _get_robot_element_by_name(urdf_dict: dict, element_type: str, element_name: str) -> dict | None:
+    """Searches for a URDF link or joint with the specified name.
+    Args:
+        urdf_dict: A dictionary containing the parsed URDF data.
+        element_type: The type of element to search for ('link' or 'joint').
+        element_name: The name of the element to find.
+
+    Returns:
+        The URDF element dictionary if found, otherwise None.
+    """
+    if element_type not in ["link", "joint"]:
+        raise ValueError("Invalid element_type. Must be 'link' or 'joint'")
+
+    for element in urdf_dict["robot"][element_type]:
+        if element["@name"] == element_name:
+            return element
+    return None  # Element not found
+
+
+def get_link_by_name(urdf_dict: dict, link_name: str) -> str | None:
+    """Searches for a URDF link with the specified name.
+
+    Args:
+        urdf_dict: A dictionary containing the parsed URDF data.
+        link_name: The name of the link to find.
+
+    Returns:
+        The URDF link dictionary if found, otherwise None.
+    """
+    return _get_robot_element_by_name(urdf_dict, "link", link_name)
+
+
+def get_joint_by_name(urdf_dict: dict, joint_name: str) -> dict | None:
+    """Searches for a URDF joint with the specified name.
+
+    Args:
+        urdf_dict: A dictionary containing the parsed URDF data.
+        joint_name: The name of the joint to find.
+
+    Returns:
+        The URDF joint dictionary if found, otherwise None.
+    """
+    return _get_robot_element_by_name(urdf_dict, "joint", joint_name)
