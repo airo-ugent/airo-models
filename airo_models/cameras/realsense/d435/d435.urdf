@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<robot name="d435">
+    <material name="mat">
+        <texture filename="d435.mtl"/>
+    </material>
+
+    <link name="base_link"/>
+
+    <!--    Define the mounting plates for the robot arms-->
+    <link name="d435_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="d435.obj" scale="0.1 0.1 0.1"/>
+            </geometry>
+            <!--            <material name="mat"/>-->
+        </visual>
+        <collision>
+            <origin xyz="0.004 0.005 0.0125" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.025 0.09 0.025"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.175"/>
+        </inertial>
+    </link>
+
+    <joint name="base_link_2_d435_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="d435_link"/>
+        <origin xyz="0 0 0.00" rpy="0 -1.57 1.57"/> # camera is modelled with X+ forward but for us it is Z+ forward
+    </joint>
+
+    <!--    Virtual frames -->
+    <link name="rgb_hole"/>
+    <joint name="d435_link_2_rgb_hole" type="fixed">
+        <parent link="d435_link"/>
+        <child link="rgb_hole"/>
+        <origin xyz="0.079 0.0 0.0125" rpy="0 0 0"/>
+    </joint>
+</robot>

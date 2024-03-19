@@ -1,0 +1,157 @@
+<?xml version="1.0" ?>
+<robot name="table">
+
+    <material name="aluminium">
+        <color rgba="0.35 0.35 0.30 1"/>
+    </material>
+
+    <link name="base_link"/>
+    <!-- Define the table top link -->
+    <link name="table_top_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.8 0.8 0.04"/>
+            </geometry>
+            <material name="aluminium"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.8 0.8 0.04"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10.0"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.166667" ixy="0.0" ixz="0.0" iyy="0.166667" iyz="0.0" izz="0.00625"/>
+        </inertial>
+    </link>
+
+    <!-- Define the table leg links -->
+    <link name="table_leg_link_1">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+            <material name="aluminium"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2.0"/>
+            <origin xyz="0.45 0.45 -0.2" rpy="0 0 0"/>
+            <inertia ixx="0.001667" ixy="0.0" ixz="0.0" iyy="0.001667" iyz="0.0" izz="0.00008333"/>
+        </inertial>
+    </link>
+    <link name="table_leg_link_2">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+            <material name="aluminium"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2.0"/>
+            <origin xyz="0.45 0.45 -0.2" rpy="0 0 0"/>
+            <inertia ixx="0.001667" ixy="0.0" ixz="0.0" iyy="0.001667" iyz="0.0" izz="0.00008333"/>
+        </inertial>
+    </link>
+    <link name="table_leg_link_3">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+            <material name="aluminium"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2.0"/>
+            <origin xyz="0.45 0.45 -0.2" rpy="0 0 0"/>
+            <inertia ixx="0.001667" ixy="0.0" ixz="0.0" iyy="0.001667" iyz="0.0" izz="0.00008333"/>
+        </inertial>
+    </link>
+    <link name="table_leg_link_4">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+            <material name="aluminium"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.04 0.04 0.78"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2.0"/>
+            <origin xyz="0.45 0.45 -0.2" rpy="0 0 0"/>
+            <inertia ixx="0.001667" ixy="0.0" ixz="0.0" iyy="0.001667" iyz="0.0" izz="0.00008333"/>
+        </inertial>
+    </link>
+
+    <!-- Define the table joints -->
+
+    <joint name="base_link_2_top_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="table_top_link"/>
+        <origin xyz="0.4 0.4 -0.02" rpy="0 0 0"/>
+        # We offset the start of the table (i.e. the table_top_link) to its corner with (0.4, 0.4) offset
+        # We also push out the origin to mount the table at its top 0.02 is half the thickness of the table top
+    </joint>
+    <joint name="table_leg1_joint" type="fixed">
+        <parent link="table_top_link"/>
+        <child link="table_leg_link_1"/>
+        <origin xyz="-0.38 -0.38 -0.41" rpy="0 0 0"/>
+        # z = -0.39 is half the height of the table leg and -0.02 is half the thickness of the table top
+    </joint>
+
+    <joint name="table_leg2_joint" type="fixed">
+        <parent link="table_top_link"/>
+        <child link="table_leg_link_2"/>
+        <origin xyz="-0.38 0.38 -0.41" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="table_leg3_joint" type="fixed">
+        <parent link="table_top_link"/>
+        <child link="table_leg_link_3"/>
+        <origin xyz="0.38 -0.38 -0.41" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="table_leg4_joint" type="fixed">
+        <parent link="table_top_link"/>
+        <child link="table_leg_link_4"/>
+        <origin xyz="0.38 0.38 -0.41" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Virtual links, i.e. useful frames -->
+    <!-- Add  centering joint -->
+    <link name="table_centre"/> <!-- virtual link to indicate -->
+
+    <joint name="table_top_2_centre" type="fixed">
+        <parent link="table_top_link"/>
+        <child link="table_centre"/>
+        <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    </joint>
+
+</robot>
