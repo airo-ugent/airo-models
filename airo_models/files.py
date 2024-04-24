@@ -25,6 +25,9 @@ def get_urdf_path(name: str) -> str:
         "mounting_plate_ur3e": os.path.join(
             airo_models_dir, "environment", "mounting_plates", "mounting_plate_ur3e.urdf"
         ),
+        "mounting_plate_ur5e": os.path.join(
+            airo_models_dir, "environment", "mounting_plates", "mounting_plate_ur5e.urdf"
+        ),
     }
 
     if name in name_to_urdf_path:
