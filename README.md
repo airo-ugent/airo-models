@@ -35,6 +35,15 @@ print(AIRO_MODEL_NAMES)
 >>> ['ur3e', 'ur5e', 'robotiq_2f_85']
 ```
 
+## Modeling conventions
+The standard convention we follow is X+ forward, Z+ up.
+
+For cameras, we follow Z+ forward, X+ right. The origin of the camera is at the center of the (left) lens. Left is defined egocentric of the camera (i.e. looking out of the eyes of the camera).
+
+For grippers, we follow
+
+Default frames are
+
 ## Development
 ### Local installation
 
