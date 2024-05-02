@@ -38,11 +38,9 @@ print(AIRO_MODEL_NAMES)
 ## Modeling conventions
 The standard convention we follow is X+ forward, Z+ up.
 
-For cameras, we follow Z+ forward, X+ right. The origin of the camera is at the center of the (left) lens. Left is defined egocentric of the camera (i.e. looking out of the eyes of the camera).
+For cameras, we follow Z+ forward through the eye of the camera, X+ right. The origin of the camera is at the center of the (left) lens. Left is defined egocentric of the camera (i.e. looking out of the eyes of the camera).
 
-For grippers, we follow
-
-Default frames are
+For grippers, we follow Z+ pointing outwards from the fingers and X in the direction in which the parallel gripper closes its fingers. The origin of the gripper (`base_link`) is at the mounting point of its base.
 
 ## Development
 ### Local installation
