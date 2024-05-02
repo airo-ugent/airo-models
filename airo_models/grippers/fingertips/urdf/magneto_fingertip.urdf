@@ -1,0 +1,32 @@
+<robot name="fingertip">
+    <link name="base_link"/>
+    <link name="magneto_finger">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.02"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="../meshes/magneto_finger.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.0418"/>
+            <geometry>
+                <box size="0.057 0.033 0.025"/>
+            </geometry>
+        </collision>
+    </link>
+
+
+    <joint name="base_to_adapter" type="fixed">
+        <parent link="base_link"/>
+        <child link="magneto_finger"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+</robot>
