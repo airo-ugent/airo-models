@@ -18,7 +18,7 @@
         </collision>
         <!-- Cable connector -->
         <collision>
-            <origin rpy="0 0 0" xyz="0.0 -0.08 0.02"/>
+            <origin rpy="0 0 0" xyz="0.0 0.08 0.02"/>
             <geometry>
                 <sphere radius="0.03"/>
             </geometry>
