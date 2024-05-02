@@ -15,7 +15,7 @@
             </geometry>
         </visual>
         <collision>
-            <origin xyz="-0.0325 0 -0.0125" rpy="0 0 0"/>
+            <origin xyz="0.0325 0 -0.0125" rpy="0 0 0"/>
             <geometry>
                 <box size="0.09 0.025 0.025"/>
             </geometry>
@@ -40,6 +40,6 @@
     <joint name="pose_of_tripod_hole_in_eye" type="fixed">
         <parent link="d435_link"/>
         <child link="tripod_hole"/>
-        <origin xyz="-0.0325 -0.0125 -0.016" rpy="0 0 0"/>
+        <origin xyz="0.0325 0.0125 -0.016" rpy="0 0 0"/>
     </joint>
 </robot>
