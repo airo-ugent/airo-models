@@ -1,4 +1,5 @@
 <robot name="Schunk_EGK40_MB_M_B">
+<!--    Note that the baselink is the start of the gripper without any mounting plate to a specific robot -->
     <link name="base_link">
         <inertial>
             <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -17,6 +18,12 @@
             <origin rpy="0 0 0" xyz="0 0 0.0418"/>
             <geometry>
                 <box size="0.117 0.068 0.0835"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin rpy="0 0 0" xyz="0.06 0 0.03"/>
+            <geometry>
+                <box size="0.04 0.04 0.04"/>
             </geometry>
         </collision>
     </link>
