@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<robot name="mounting_plate">
+    <material name="aluminium">
+        <color rgba="0.70 0.70 0.70 1"/>
+    </material>
+
+    <link name="base_link"/>
+
+    <!--    Define the mounting plates for the robot arms-->
+    <link name="mounting_plate_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.215 0.215 0.035"/>
+            </geometry>
+            <material name="aluminium"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.215 0.215 0.035"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1.0"/>
+        </inertial>
+    </link>
+
+    <joint name="base_link_2_mounting_plate" type="fixed">
+        <parent link="base_link"/>
+        <child link="mounting_plate_link"/>
+        <origin xyz="0 0 0.0175" rpy="0 0 0"/>
+        # We also push out the origin to make that if we mount the plate, we are mounting it at the bottom
+    </joint>
+
+    <!--    Virtual frame -->
+    <link name="plate_top_centre"/>
+
+    <joint name="base_link_2_top_centre" type="fixed">
+        <parent link="base_link"/>
+        <child link="plate_top_centre"/>
+        <origin xyz="0 0 0.0175" rpy="0 0 0"/>
+    </joint>
+</robot>

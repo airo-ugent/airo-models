@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<robot name="zed2i">
+    <link name="base_link"/>
+
+    <!--    Define the mounting plates for the robot arms-->
+    <link name="zed_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="zed2i.obj" scale="0.1 0.1 0.1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0.06 0 -0.01865" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.175 0.043 0.0373"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.230"/>
+        </inertial>
+    </link>
+
+    <joint name="base_link_2_zed_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="zed_link"/>
+        <origin xyz="0 0 0.00" rpy="0 0 0"/> # camera is modelled with Z+ forward, origin is in left eye (egocentric)
+    </joint>
+
+    <!--    Virtual frames -->
+    <link name="right_eye"/> <!-- virtual frame for the right eye -->
+    <joint name="pose_of_right_eye_in_left_eye" type="fixed">
+        <parent link="zed_link"/>
+        <child link="right_eye"/>
+        <origin xyz="0.12 0 0" rpy="0 0 0"/>
+    </joint>
+</robot>

@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<robot name="d435">
+    <material name="mat">
+        <texture filename="d435.mtl"/>
+    </material>
+
+    <link name="base_link"/>
+
+    <!--    Define the mounting plates for the robot arms-->
+    <link name="d435_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="d435.obj" scale="0.1 0.1 0.1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0.0325 0 -0.0125" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.09 0.025 0.025"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.072"/>
+        </inertial>
+    </link>
+
+    <joint name="base_link_2_d435_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="d435_link"/>
+        <origin xyz="0 0 0.00" rpy="0 0 0"/> # camera is modelled with Z+ forward, origin is in left eye (egocentric)
+    </joint>
+
+    <!--  The left imager, IR projector and right imager are -0.15, -0.44, -0.65 in X direction removed from the d435_link
+        see https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/Intel-RealSense-D400-Series-Datasheet.pdf p106
+    -->
+
+    <!--    Virtual frames -->
+    <link name="tripod_hole"/> <!-- virtual frame for the right eye -->
+    <joint name="pose_of_tripod_hole_in_eye" type="fixed">
+        <parent link="d435_link"/>
+        <child link="tripod_hole"/>
+        <origin xyz="0.0325 0.0125 -0.016" rpy="0 0 0"/>
+    </joint>
+</robot>

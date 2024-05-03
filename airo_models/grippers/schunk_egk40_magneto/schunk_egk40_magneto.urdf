@@ -1,0 +1,169 @@
+<robot name="schunk_egk40_magneto">
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.117 0.068 0.015"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.0"/>
+            <geometry>
+                <box size="0.117 0.068 0.015"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="camera_mount_plate">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.117 0.068 0.0035"/>
+            </geometry>
+            <material name="">
+                <color rgba="1 1 0.1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.0"/>
+            <geometry>
+                <box size="0.117 0.068 0.0035"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="pcb_mount_plate">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.02 0.068 0.0835"/>
+            </geometry>
+            <material name="">
+                <color rgba="1 1 0.1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.0"/>
+            <geometry>
+                <box size="0.02 0.068 0.0835"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="base_link_gripper">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="1.02"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="../schunk_egk40/meshes/EGK40-MB-M-B.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.0418"/>
+            <geometry>
+                <box size="0.117 0.068 0.0835"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin rpy="0 0 0" xyz="0.06 0 0.03"/>
+            <geometry>
+                <box size="0.04 0.04 0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="right_magneto_finger">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.02"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="../fingertips/meshes/magneto_finger.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0.034 -0.0155 0.0345"/>
+            <geometry>
+                <box size="0.025 0.025 0.055"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="left_magneto_finger">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.02"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="../fingertips/meshes/magneto_finger.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0.034 -0.0155 0.0345"/>
+            <geometry>
+                <box size="0.025 0.025 0.055"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="base_link_to_camera_mount_plate" type="fixed">
+        <parent link="base_link"/>
+        <child link="camera_mount_plate"/>
+    </joint>
+    <joint name="base_link_to_pcb_mount_plate" type="fixed">
+        <parent link="base_link"/>
+        <child link="pcb_mount_plate"/>
+        <origin xyz="-0.0685 0 0.04175"/>
+    </joint>
+
+    <joint name="base_link_gripper_joint" type="fixed">
+        <parent link="camera_mount_plate"/>
+        <child link="base_link_gripper"/>
+    </joint>
+
+    <link name="right_finger_mount"/>
+    <joint name="right_finger_mount_joint" type="prismatic">
+        <parent link="base_link_gripper"/>
+        <child link="right_finger_mount"/>
+        <origin xyz="0.0155 0.01711 0.0835" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-0.05" upper="0" effort="10" velocity="0.1"/>
+    </joint>
+
+    <link name="left_finger_mount"/>
+    <joint name="left_finger_mount_joint" type="prismatic">
+        <parent link="base_link_gripper"/>
+        <child link="left_finger_mount"/>
+        <origin xyz="-0.0155 -0.01711 0.0835" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-0" upper="0.05" effort="10" velocity="0.1"/>
+    </joint>
+
+    <joint name="right_finger_mount_to_tip" type="fixed">
+        <parent link="right_finger_mount"/>
+        <child link="right_magneto_finger"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="left_finger_mount_to_tip" type="fixed">
+        <parent link="left_finger_mount"/>
+        <child link="left_magneto_finger"/>
+        <origin xyz="0 0 0" rpy="0 0 3.14"/>
+    </joint>
+</robot>
