@@ -29,11 +29,10 @@
             </geometry>
         </visual>
 
-        <!--TODO: Set the correct collisions -->
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.105 0.154 0.025" />
+                <box size="0.233 0.233 0.24" />
             </geometry>
         </collision>
     </link>
