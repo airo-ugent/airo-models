@@ -23,6 +23,10 @@ def get_urdf_path(name: str) -> str:
         "schunk_egk40_magneto": os.path.join(
             airo_models_dir, "grippers", "schunk_egk40_magneto", "schunk_egk40_magneto.urdf"
         ),
+        "kelo_robile": os.path.join(airo_models_dir, "mobile_platforms", "kelo_robile", "urdf", "mobi.urdf"),
+        "kelo_robile_battery": os.path.join(airo_models_dir, "mobile_platforms", "kelo_robile", "urdf", "battery_brick.urdf"),
+        "kelo_robile_cpu": os.path.join(airo_models_dir, "mobile_platforms", "kelo_robile", "urdf", "cpu_brick.urdf"),
+        "kelo_robile_wheel": os.path.join(airo_models_dir, "mobile_platforms", "kelo_robile", "urdf", "wheel_brick.urdf"),
         "zed2i": os.path.join(airo_models_dir, "cameras", "zed2i", "zed2i.urdf"),
         "d435": os.path.join(airo_models_dir, "cameras", "realsense", "d435", "d435.urdf"),
         "table8080": os.path.join(airo_models_dir, "environment", "tables", "table8080.urdf"),

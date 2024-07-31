@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="mobi">
+    <link name="base_link"/>
+    <link name="base_link_inertia">
+    </link>
+    <joint name="base_link-base_link_inertia" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_link_inertia"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+</robot>
