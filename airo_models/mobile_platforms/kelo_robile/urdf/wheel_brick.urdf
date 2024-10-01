@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="wheel_brick">
+    <link name="base_link"/>
+    <link name="base_link_inertia">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="../meshes/wheeled_brick_housing.obj"/>
+            </geometry>
+        </visual>
+        <!-- Base joint -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <geometry>
+                <sphere radius="0.07"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="4.0"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.00443333156" ixy="0.0" ixz="0.0" iyy="0.00443333156" iyz="0.0" izz="0.0072"/>
+        </inertial>
+    </link>
+    <link name="pivot_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="../meshes/kelo_drive_base.obj" scale="1 1 1"/>
+            </geometry>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0.07" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.233 0.233 0.24" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="left_hub_wheel_link">
+        <visual>
+            <origin xyz="-0.01 0.039326 0.001514" rpy="0 0 0.0"/>
+            <geometry>
+                <mesh filename="../meshes/kelo_drive_wheel.obj" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="-0.01 0.039326 0.001514" rpy="1.570796327 0 0"/>
+            <geometry>
+                <cylinder radius="0.0515" length="0.035"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="right_hub_wheel_link">
+        <visual>
+            <origin xyz="-0.01 -0.039326 0.001514" rpy="0 0 0.0"/>
+            <geometry>
+                <mesh filename="../meshes/kelo_drive_wheel.obj" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="-0.01 -0.039326 0.001514" rpy="1.570796327 0 0"/>
+            <geometry>
+                <cylinder radius="0.0515" length="0.035"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="base_link-base_link_inertia" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_link_inertia"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+    <joint name="base_link-pivot_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="pivot_link"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+    <joint name="pivot_link-left_hub_wheel_link" type="fixed">
+        <parent link="pivot_link"/>
+        <child link="left_hub_wheel_link"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+    <joint name="pivot_link-right_hub_wheel_link" type="fixed">
+        <parent link="pivot_link"/>
+        <child link="right_hub_wheel_link"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+</robot>
