@@ -8,7 +8,7 @@ version = "0.0.10"
 authors = [
   { name = "Andreas Verleysen", email = "andreas.verleysen@ugent.be" },
   { name = "Victor-Louis De Gusseme", email = "victorlouisdg@gmail.com" },
-  { name = "Mathieu De Coster", email="mathieu.decoster@ugent.be" }
+  { name = "Mathieu De Coster", email="mathieu.decoster@ugent.be" },
 ]
 description = "Curated URDFs and 3D models of the robots and gripper used at airo."
 readme = "README.md"
