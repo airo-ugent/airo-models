@@ -85,7 +85,7 @@ def make_paths_absolute(dict_: dict, urdf_path: str) -> None:
                 make_paths_absolute(item, urdf_path)
 
 
-def single_link_urdf_dict(name: str, geometry_dict: dict) -> dict:
+def single_link_urdf_dict(name: str, geometry_dict: dict, material_dict: dict) -> dict:
     """Generate the basic structure of URDF for a single link with a given geometry.
 
     Corresponds to this URDF:
@@ -113,7 +113,7 @@ def single_link_urdf_dict(name: str, geometry_dict: dict) -> dict:
             "@name": name,
             "link": {
                 "@name": "base_link",
-                "visual": {"geometry": geometry_dict},
+                "visual": {"geometry": geometry_dict, "material": material_dict},
                 "collision": {"geometry": geometry_dict},
             },
         }
@@ -174,3 +174,8 @@ def get_joint_by_name(urdf_dict: dict, joint_name: str) -> dict | None:
         The URDF joint dictionary if found, otherwise None.
     """
     return _get_robot_element_by_name(urdf_dict, "joint", joint_name)
+
+
+def material_dict(rgba: tuple[float, float, float, float]) -> dict:
+    material_dict = {"color": {"@rgba": " ".join(map(str, rgba))}}
+    return material_dict
