@@ -1,6 +1,6 @@
 """Python functions to easily generate a single-link URDF from a mesh file."""
 
-from airo_models.urdf import dict_to_xml_str, single_link_urdf_dict, write_urdf_to_tempfile
+from airo_models.urdf import dict_to_xml_str, single_link_urdf_dict, write_urdf_to_tempfile, material_dict
 
 
 def mesh_geometry_dict(mesh_file: str) -> dict:
@@ -10,7 +10,8 @@ def mesh_geometry_dict(mesh_file: str) -> dict:
 
 def mesh_dict(mesh_file: str, name: str = "mesh") -> dict:
     geometry_dict = mesh_geometry_dict(mesh_file)
-    mesh_dict_ = single_link_urdf_dict(name, geometry_dict)
+    mat_dict = material_dict((1.0, 1.0, 1.0, 1.0))
+    mesh_dict_ = single_link_urdf_dict(name, geometry_dict, mat_dict)
     return mesh_dict_
 
 
