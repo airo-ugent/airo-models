@@ -2,6 +2,7 @@
 
 from airo_models.urdf import dict_to_xml_str, material_dict, single_link_urdf_dict, write_urdf_to_tempfile
 
+
 def mesh_geometry_dict(mesh_file: str) -> dict:
     geometry_dict = {"mesh": {"@filename": mesh_file}}
     return geometry_dict
