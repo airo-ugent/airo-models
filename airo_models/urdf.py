@@ -175,6 +175,7 @@ def get_joint_by_name(urdf_dict: dict, joint_name: str) -> dict | None:
     """
     return _get_robot_element_by_name(urdf_dict, "joint", joint_name)
 
+
 def material_dict(rgba: tuple[float, float, float, float]) -> dict:
     material_dict = {"color": {"@rgba": " ".join(map(str, rgba))}}
     return material_dict
