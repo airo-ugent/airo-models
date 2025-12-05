@@ -46,9 +46,9 @@ For grippers, we follow Z+ pointing outwards from the fingers and X in the direc
 ### Local installation
 
 - Clone this repo
-- Create the conda environment `conda env create -f environment.yaml`
-- Initialize the pre-commit hooks `pre-commit install`
-- Run the tests with `pytest .`
+- Install the dependencies using `uv sync`
+- Initialize the pre-commit hooks `uv run pre-commit install`
+- Run the tests with `uv run pytest .`
 
 ### Releasing
 Releasing to PyPi is done automatically by github actions when a new tag is pushed to the main branch.
