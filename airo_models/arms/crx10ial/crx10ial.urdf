@@ -10,7 +10,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="visual/base_link.stl"/>
+        <mesh filename="visual/base_link.obj"/>
       </geometry>
       <material name="">
         <color rgba="0.23921568627450981 0.23921568627450981 0.23921568627450981 1.0"/>
@@ -19,7 +19,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="collision/base_link.stl"/>
+        <mesh filename="collision/base_link.obj"/>
       </geometry>
     </collision>
   </link>
@@ -27,7 +27,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_1.stl"/>
+        <mesh filename="visual/link_1.obj"/>
       </geometry>
       <material name="">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -36,7 +36,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="collision/link_1.stl"/>
+        <mesh filename="collision/link_1.obj"/>
       </geometry>
     </collision>
   </link>
@@ -44,7 +44,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_2.stl"/>
+        <mesh filename="visual/link_2.obj"/>
       </geometry>
       <material name="">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -53,7 +53,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="collision/link_2.stl"/>
+        <mesh filename="collision/link_2.obj"/>
       </geometry>
     </collision>
   </link>
@@ -61,7 +61,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_3.stl"/>
+        <mesh filename="visual/link_3.obj"/>
       </geometry>
       <material name="">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -70,7 +70,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="collision/link_3.stl"/>
+        <mesh filename="collision/link_3.obj"/>
       </geometry>
     </collision>
   </link>
@@ -78,7 +78,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_4.stl"/>
+        <mesh filename="visual/link_4.obj"/>
       </geometry>
       <material name="">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -87,7 +87,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="collision/link_4.stl"/>
+        <mesh filename="collision/link_4.obj"/>
       </geometry>
     </collision>
   </link>
@@ -95,7 +95,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_5.stl"/>
+        <mesh filename="visual/link_5.obj"/>
       </geometry>
       <material name="">
         <color rgba="0.86 0.85 0.81 1.0"/>
@@ -104,7 +104,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="collision/link_5.stl"/>
+        <mesh filename="collision/link_5.obj"/>
       </geometry>
     </collision>
   </link>
@@ -112,7 +112,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_6.stl"/>
+        <mesh filename="visual/link_6.obj"/>
       </geometry>
       <material name="">
         <color rgba="0.23921568627450981 0.23921568627450981 0.23921568627450981 1.0"/>
@@ -121,7 +121,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="collision/link_6.stl"/>
+        <mesh filename="collision/link_6.obj"/>
       </geometry>
     </collision>
   </link>
