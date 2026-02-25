@@ -18,6 +18,7 @@ def get_urdf_path(name: str) -> str:
     name_to_urdf_path = {
         "ur3e": os.path.join(airo_models_dir, "arms", "ur3e", "ur3e.urdf"),
         "ur5e": os.path.join(airo_models_dir, "arms", "ur5e", "ur5e.urdf"),
+        "crx10ial": os.path.join(airo_models_dir, "arms", "crx10ial", "crx10ial.urdf"),
         "robotiq_2f_85": os.path.join(airo_models_dir, "grippers", "robotiq_2f_85", "urdf", "robotiq_2f_85.urdf"),
         "schunk_egk40": os.path.join(airo_models_dir, "grippers", "schunk_egk40", "urdf", "schunk_egk40.urdf"),
         "schunk_egk40_magneto": os.path.join(

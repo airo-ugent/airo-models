@@ -60,3 +60,7 @@ Releasing to PyPi is done automatically by github actions when a new tag is push
 6. ```git push origin v0.1.0```
 
 This was set up following [this guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/) first and then [this guide](https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/).
+
+## Third party licenses
+
+The FANUC URDF files are copyright (c) 2012-2014, TU Delft Robotics Institute, and licensed under the BSD license. See `airo_models/arms/crx10ial/LICENSE.txt`.
