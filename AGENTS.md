@@ -28,6 +28,9 @@ The package exposes:
   - `arms/`, `grippers/`, `cameras/`, `mobile_platforms/`, `environment/` —
     the actual URDF and mesh assets, grouped by category.
 - `test/` — pytest tests (`test_*.py`).
+- `visualize_urdf.py` — browser-based URDF viewer (viser); run
+  `python visualize_urdf.py <name|path> [--collision]`. Needs the `viz` extra
+  (`pip install airo-models[viz]`).
 - `notebooks/` — example notebooks (stripped with `nbstripout` on commit).
 - `environment.yaml` — conda environment used by CI.
 - `pyproject.toml` — package metadata and dependencies.

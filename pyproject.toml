@@ -23,6 +23,14 @@ dependencies = [
     "xmltodict>=1.0.2",
 ]
 
+[project.optional-dependencies]
+# Dependencies for the browser-based URDF visualizer (visualize_urdf.py).
+viz = [
+    "viser>=1.0.0",
+    "yourdfpy>=0.0.56",
+    "numpy",
+]
+
 [project.urls]
 Homepage = "https://github.com/airo-ugent/airo-models"
 Issues = "https://github.com/airo-ugent/airo-models/issues"
