@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-# Dependencies for the browser-based URDF visualizer (visualize_urdf.py).
+# Dependencies for the browser-based URDF visualizer (scripts/visualize_urdf.py).
 viz = [
     "viser>=1.0.0",
     "yourdfpy>=0.0.56",

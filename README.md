@@ -36,7 +36,7 @@ print(AIRO_MODEL_NAMES)
 ```
 
 ## Visualization
-You can visualize any model in your browser (visual and/or collision meshes, with sliders to move the joints) using the `visualize_urdf.py` script, which is powered by [viser](https://github.com/nerfstudio-project/viser).
+You can visualize any model in your browser (visual and/or collision meshes, coordinate frames for every link, with sliders to move the joints) using the `visualize_urdf.py` script, which is powered by [viser](https://github.com/nerfstudio-project/viser).
 
 Install the optional visualization dependencies:
 ```
@@ -45,11 +45,14 @@ pip install airo-models[viz]
 
 Then run it with a known model name (see `AIRO_MODEL_NAMES`) or a path to any URDF file:
 ```
-python visualize_urdf.py ur5e                # visual meshes only
-python visualize_urdf.py robotiq_2f_85 --collision   # also load collision meshes
-python visualize_urdf.py path/to/robot.urdf
+python scripts/visualize_urdf.py ur5e                # visual meshes only
+python scripts/visualize_urdf.py robotiq_2f_85 --collision   # also load collision meshes
+python scripts/visualize_urdf.py path/to/robot.urdf --watch   # live-reload on file changes
 ```
-Open the printed URL (default http://localhost:8080) in your browser.
+Open the printed URL (default http://localhost:8080) in your browser. The GUI lets you
+toggle the visual/collision geometry, show per-link coordinate frames (globally or per link),
+and move the actuated joints. Use `--watch` to auto-reload the model whenever the URDF file
+changes on disk (handy while hand-tuning collision primitives).
 
 ## Modeling conventions
 The standard convention we follow is X+ forward, Z+ up.
