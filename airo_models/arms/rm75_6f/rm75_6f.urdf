@@ -9,7 +9,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/base_link.STL"/>
+        <mesh filename="visual/base_link.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
@@ -73,7 +73,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_1.STL"/>
+        <mesh filename="visual/link_1.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
@@ -137,7 +137,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_2.STL"/>
+        <mesh filename="visual/link_2.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
@@ -201,7 +201,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_3.STL"/>
+        <mesh filename="visual/link_3.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
@@ -265,7 +265,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_4.STL"/>
+        <mesh filename="visual/link_4.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
@@ -329,7 +329,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_5.STL"/>
+        <mesh filename="visual/link_5.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
@@ -393,7 +393,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_6.STL"/>
+        <mesh filename="visual/link_6.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
@@ -457,7 +457,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="visual/link_7.STL"/>
+        <mesh filename="visual/link_7.obj"/>
       </geometry>
       <material name="">
         <color rgba="1 1 1 1"/>
