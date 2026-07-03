@@ -3,8 +3,8 @@
 Motion planners perform many collision/distance queries, and closed-form
 primitive checks (sphere/cylinder) are roughly an order of magnitude cheaper
 than convex-mesh queries. This script approximates every mesh referenced by a
-``<collision>`` element with a single bounding **cylinder** and writes a new
-URDF using those primitives.
+link's ``<visual>`` element with a single bounding **cylinder** and writes a new
+URDF using those primitives as ``<collision>`` geometry.
 
 For each such link the mesh is loaded in its own link frame and its
 axis-aligned bounding box is computed. The cylinder is aligned with one local
@@ -14,8 +14,7 @@ cylinder length equals the extent along that axis and its radius equals half of
 the larger of the two remaining extents, so the cylinder fully encloses the
 bounding box cross-section (a conservative, watertight fit).
 
-Visual geometry, inertial data, joints and any non-mesh collision primitives are
-copied over unchanged.
+Visual geometry, inertial data and joints are copied over unchanged.
 
 Run with a known model name (see ``AIRO_MODEL_NAMES``) or a path to a URDF::
 
@@ -112,22 +111,22 @@ def fit_cylinder(mesh_path: str, axis: str | None) -> tuple[str, np.ndarray, flo
     return axis, center, length, radius
 
 
-def primitive_collision_element(collision: dict, link_name: str, input_urdf_path: str, axis: str | None) -> dict:
-    """Convert a single mesh ``<collision>`` element into a bounding-cylinder collision element.
+def primitive_collision_element(source: dict, link_name: str, input_urdf_path: str, axis: str | None) -> dict:
+    """Convert a single mesh source (``<visual>``) element into a bounding-cylinder collision element.
 
     Non-mesh geometries (box, cylinder, sphere) are returned unchanged.
     """
-    geometry = collision.get("geometry", {})
+    geometry = source.get("geometry", {})
     if "mesh" not in geometry:
-        return collision
+        return source
 
     mesh_rel_path = geometry["mesh"]["@filename"]
     mesh_abs_path = urdf_utils.make_path_absolute(mesh_rel_path, input_urdf_path)
 
     chosen_axis, center, length, radius = fit_cylinder(mesh_abs_path, axis)
 
-    # Compose the link's own collision origin (if any) with the cylinder-in-link-frame pose.
-    base_origin = collision.get("origin", {})
+    # Compose the link's own visual origin (if any) with the cylinder-in-link-frame pose.
+    base_origin = source.get("origin", {})
     base_xyz = np.array([float(v) for v in base_origin.get("@xyz", "0 0 0").split()])
 
     element = {
@@ -146,18 +145,18 @@ def generate_primitive_collision_urdf(
     output_urdf_path: str,
     axis_map: dict[str, str],
 ) -> None:
-    """Read a URDF, replace every mesh collision by a bounding cylinder, and write a new URDF."""
+    """Read a URDF and build a bounding-cylinder collision model from each link's visual mesh."""
     urdf_dict = urdf_utils.read_urdf(input_urdf_path)
 
     for link in as_list(urdf_dict["robot"]["link"]):
-        collisions = as_list(link.get("collision"))
-        if not collisions:
+        visuals = as_list(link.get("visual"))
+        if not visuals:
             continue
 
         axis = axis_map.get(link["@name"])
         new_collisions = [
-            primitive_collision_element(copy.deepcopy(collision), link["@name"], input_urdf_path, axis)
-            for collision in collisions
+            primitive_collision_element(copy.deepcopy(source), link["@name"], input_urdf_path, axis)
+            for source in visuals
         ]
         # xmltodict serialises a single-element list and a dict differently; use a dict when there is
         # exactly one collision element so the output matches hand-written URDFs.

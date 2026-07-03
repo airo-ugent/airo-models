@@ -2,14 +2,13 @@
 
 Motion planners typically require *convex* collision geometry and perform many
 collision/distance queries, so the raw (often concave, high-triangle) visual
-meshes used as collision geometry are both incompatible and slow. This script
-runs `CoACD <https://github.com/SarahWeiii/CoACD>`_ (Approximate Convex
-Decomposition) on every mesh referenced by a ``<collision>`` element and writes
-a new URDF in which each such collision mesh is replaced by a set of convex
-``.obj`` parts.
+meshes are both incompatible and slow to use directly as collision geometry.
+This script runs `CoACD <https://github.com/SarahWeiii/CoACD>`_ (Approximate
+Convex Decomposition) on every mesh referenced by a link's ``<visual>`` element
+and writes a new URDF whose ``<collision>`` geometry is the resulting set of
+convex ``.obj`` parts.
 
-Visual geometry, inertial data, joints and any non-mesh collision primitives are
-copied over unchanged.
+Visual geometry, inertial data and joints are copied over unchanged.
 
 Run with a known model name (see ``AIRO_MODEL_NAMES``) or a path to any URDF::
 
@@ -80,7 +79,7 @@ def decompose_mesh(mesh_path: str, coacd_params: dict) -> list[trimesh.Trimesh]:
 
 
 def convex_collision_elements(
-    collision: dict,
+    source: dict,
     link_name: str,
     collision_index: int,
     input_urdf_path: str,
@@ -88,15 +87,15 @@ def convex_collision_elements(
     output_urdf_dir: str,
     coacd_params: dict,
 ) -> list[dict]:
-    """Convert a single ``<collision>`` element into one or more convex-part collision elements.
+    """Convert a single source (``<visual>``) element into one or more convex-part collision elements.
 
     Non-mesh geometries (box, cylinder, sphere) are returned unchanged. For mesh geometries the
     referenced mesh is decomposed with CoACD and one collision element is emitted per convex part,
     each keeping the original ``<origin>``.
     """
-    geometry = collision.get("geometry", {})
+    geometry = source.get("geometry", {})
     if "mesh" not in geometry:
-        return [collision]
+        return [source]
 
     mesh_rel_path = geometry["mesh"]["@filename"]
     mesh_abs_path = urdf_utils.make_path_absolute(mesh_rel_path, input_urdf_path)
@@ -104,7 +103,7 @@ def convex_collision_elements(
     convex_parts = decompose_mesh(mesh_abs_path, coacd_params)
 
     mesh_stem = Path(mesh_rel_path).stem
-    origin = collision.get("origin")
+    origin = source.get("origin")
 
     collision_elements: list[dict] = []
     for part_index, part in enumerate(convex_parts):
@@ -127,22 +126,22 @@ def generate_convex_collision_urdf(
     output_mesh_dir: str,
     coacd_params: dict,
 ) -> None:
-    """Read a URDF, replace every mesh collision by its CoACD convex decomposition, and write a new URDF."""
+    """Read a URDF and build a convex collision model from each link's visual mesh, then write a new URDF."""
     os.makedirs(output_mesh_dir, exist_ok=True)
     output_urdf_dir = os.path.dirname(os.path.abspath(output_urdf_path))
 
     urdf_dict = urdf_utils.read_urdf(input_urdf_path)
 
     for link in as_list(urdf_dict["robot"]["link"]):
-        collisions = as_list(link.get("collision"))
-        if not collisions:
+        visuals = as_list(link.get("visual"))
+        if not visuals:
             continue
 
         new_collisions: list[dict] = []
-        for collision_index, collision in enumerate(collisions):
+        for collision_index, source in enumerate(visuals):
             new_collisions.extend(
                 convex_collision_elements(
-                    collision,
+                    source,
                     link["@name"],
                     collision_index,
                     input_urdf_path,
