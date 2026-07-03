@@ -8,7 +8,7 @@ For arms, we expect two frames:
 - a `tool0` frame at the flange, corresponding to the manufacturer tool frame,  which is usually z-forward.
 
 For end-effectors such as grippers, we expect:
-- a `tool0` frame that corresponds to the mechanical interface with the robot arm.
+- a `base_link` frame that corresponds to the mechanical interface with the robot arm, this frame can be welded to the `tool0` frame of the robot arm to attach the gripper.
 - a `TCP` frame that corresponds to the end of the fingertip/part that would be used for manip.
 
 For cameras, we expect:

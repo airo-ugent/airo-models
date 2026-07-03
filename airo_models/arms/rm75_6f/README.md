@@ -1,15 +1,6 @@
 # RealMan RM75-6F
 
-7-DoF arm from RealMan Robotics. URDF and meshes sourced from
-[RealManRobot/rm_models](https://github.com/RealManRobot/rm_models/tree/main/RM75/urdf/RM75-6F).
-
-Two extra frames follow the ROS-Industrial convention (see
-[`frame_conventions.md`](../../frame_conventions.md)): a `base` frame coincident
-with `base_link` and a `tool0` flange frame coincident with `link_7`. Per
-RealMan's official URDFs and driver, neither is rotated about z relative to the
-manufacturer's base/tool frames.
-
-## Collision variants
+7-DoF  RM-75 arm with EEF Force-Torque sensor from RealMan Robotics. 
 
 Two models are provided. They share identical visual meshes, kinematics and
 frames, and differ only in their collision geometry.
@@ -26,7 +17,19 @@ frames, and differ only in their collision geometry.
   horizontal, others vertical). Cheapest collision queries, but over-approximates
   the arm volume, so it reports false positives in tight spaces.
 
-## Regenerating the collision variants
+
+## How the models were obtained
+
+original URDF and meshes sourced from
+[RealManRobot/rm_models](https://github.com/RealManRobot/rm_models/tree/main/RM75/urdf/RM75-6F).
+
+Two extra frames added follow the ROS-Industrial convention (see
+[`frame_conventions.md`](../../frame_conventions.md)): a `base` frame coincident
+with `base_link` and a `tool0` flange frame coincident with `link_7`. Per
+RealMan's official URDFs and driver, neither is rotated about z relative to the
+manufacturer's base/tool frames.
+
+## Collision variants
 
 Both variants are derived from the **visual** meshes referenced in `rm75_6f.urdf`
 with reusable scripts (needs the `collision` extra:
