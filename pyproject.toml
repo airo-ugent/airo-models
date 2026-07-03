@@ -30,6 +30,12 @@ viz = [
     "yourdfpy>=0.0.56",
     "numpy",
 ]
+# Dependencies for generating convex collision meshes (scripts/generate_convex_collision_meshes.py).
+collision = [
+    "coacd>=1.0.0",
+    "trimesh>=4.0.0",
+    "numpy",
+]
 
 [project.urls]
 Homepage = "https://github.com/airo-ugent/airo-models"
