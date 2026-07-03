@@ -65,17 +65,17 @@ def as_list(value: object) -> list:
     return [value]
 
 
-def decompose_mesh(mesh_path: str, threshold: float, preprocess_resolution: int, seed: int) -> list[trimesh.Trimesh]:
-    """Run CoACD on a single mesh file and return the resulting convex parts as trimesh meshes."""
+def decompose_mesh(mesh_path: str, coacd_params: dict) -> list[trimesh.Trimesh]:
+    """Run CoACD on a single mesh file and return the resulting convex parts as trimesh meshes.
+
+    ``coacd_params`` are forwarded to :func:`coacd.run_coacd`; ``max_convex_hull`` caps the number of
+    parts (-1 = unlimited) and ``max_ch_vertex`` (with ``decimate=True``) caps the vertices per hull,
+    keeping the collision geometry light for fast queries.
+    """
     mesh = trimesh.load(mesh_path, force="mesh")
     assert isinstance(mesh, trimesh.Trimesh), f"Expected a single mesh from {mesh_path}, got {type(mesh)}"
     coacd_mesh = coacd.Mesh(np.asarray(mesh.vertices), np.asarray(mesh.faces))
-    parts = coacd.run_coacd(
-        coacd_mesh,
-        threshold=threshold,
-        preprocess_resolution=preprocess_resolution,
-        seed=seed,
-    )
+    parts = coacd.run_coacd(coacd_mesh, **coacd_params)
     return [trimesh.Trimesh(vertices=vertices, faces=faces) for vertices, faces in parts]
 
 
@@ -86,9 +86,7 @@ def convex_collision_elements(
     input_urdf_path: str,
     output_mesh_dir: str,
     output_urdf_dir: str,
-    threshold: float,
-    preprocess_resolution: int,
-    seed: int,
+    coacd_params: dict,
 ) -> list[dict]:
     """Convert a single ``<collision>`` element into one or more convex-part collision elements.
 
@@ -103,7 +101,7 @@ def convex_collision_elements(
     mesh_rel_path = geometry["mesh"]["@filename"]
     mesh_abs_path = urdf_utils.make_path_absolute(mesh_rel_path, input_urdf_path)
 
-    convex_parts = decompose_mesh(mesh_abs_path, threshold, preprocess_resolution, seed)
+    convex_parts = decompose_mesh(mesh_abs_path, coacd_params)
 
     mesh_stem = Path(mesh_rel_path).stem
     origin = collision.get("origin")
@@ -127,9 +125,7 @@ def generate_convex_collision_urdf(
     input_urdf_path: str,
     output_urdf_path: str,
     output_mesh_dir: str,
-    threshold: float,
-    preprocess_resolution: int,
-    seed: int,
+    coacd_params: dict,
 ) -> None:
     """Read a URDF, replace every mesh collision by its CoACD convex decomposition, and write a new URDF."""
     os.makedirs(output_mesh_dir, exist_ok=True)
@@ -152,9 +148,7 @@ def generate_convex_collision_urdf(
                     input_urdf_path,
                     output_mesh_dir,
                     output_urdf_dir,
-                    threshold,
-                    preprocess_resolution,
-                    seed,
+                    coacd_params,
                 )
             )
 
@@ -181,8 +175,22 @@ def main() -> None:
     parser.add_argument(
         "--threshold",
         type=float,
-        default=0.05,
-        help="CoACD concavity threshold in [0.01, 1]; lower = more parts / higher accuracy (default: 0.05).",
+        default=0.1,
+        help="CoACD concavity threshold in [0.01, 1]; lower = more parts / higher accuracy (default: 0.1).",
+    )
+    parser.add_argument(
+        "--max-convex-hull",
+        type=int,
+        default=8,
+        help="Maximum number of convex parts per input mesh (-1 = unlimited); caps collision complexity "
+        "(default: 8).",
+    )
+    parser.add_argument(
+        "--max-ch-vertex",
+        type=int,
+        default=64,
+        help="Maximum vertices per convex hull (via CoACD decimation); lower = cheaper collision queries "
+        "(default: 64).",
     )
     parser.add_argument(
         "--preprocess-resolution",
@@ -202,19 +210,21 @@ def main() -> None:
 
     coacd.set_log_level("error")
 
+    coacd_params = {
+        "threshold": args.threshold,
+        "max_convex_hull": args.max_convex_hull,
+        "preprocess_resolution": args.preprocess_resolution,
+        "decimate": True,
+        "max_ch_vertex": args.max_ch_vertex,
+        "seed": args.seed,
+    }
+
     print(f"Input URDF:   {input_urdf_path}")
     print(f"Output URDF:  {output_urdf_path}")
     print(f"Mesh parts:   {output_mesh_dir}")
-    print(f"CoACD threshold={args.threshold}, preprocess_resolution={args.preprocess_resolution}, seed={args.seed}")
+    print(f"CoACD params: {coacd_params}")
 
-    generate_convex_collision_urdf(
-        input_urdf_path,
-        output_urdf_path,
-        output_mesh_dir,
-        args.threshold,
-        args.preprocess_resolution,
-        args.seed,
-    )
+    generate_convex_collision_urdf(input_urdf_path, output_urdf_path, output_mesh_dir, coacd_params)
     print("Done.")
 
 

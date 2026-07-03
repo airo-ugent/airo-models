@@ -57,6 +57,12 @@
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/base_link_collision_0_part_7.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
   </link>
   <link name="link_1">
     <inertial>
@@ -82,6 +88,42 @@
     <collision>
       <geometry>
         <mesh filename="collision_convex/link_1_collision_0_part_1.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_1_collision_0_part_2.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_1_collision_0_part_3.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_1_collision_0_part_4.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_1_collision_0_part_5.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_1_collision_0_part_6.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_1_collision_0_part_7.obj"/>
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
@@ -113,6 +155,42 @@
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_2_collision_0_part_2.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_2_collision_0_part_3.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_2_collision_0_part_4.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_2_collision_0_part_5.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_2_collision_0_part_6.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_2_collision_0_part_7.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
   </link>
   <link name="link_3">
     <inertial>
@@ -138,6 +216,42 @@
     <collision>
       <geometry>
         <mesh filename="collision_convex/link_3_collision_0_part_1.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_3_collision_0_part_2.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_3_collision_0_part_3.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_3_collision_0_part_4.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_3_collision_0_part_5.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_3_collision_0_part_6.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_3_collision_0_part_7.obj"/>
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
@@ -172,6 +286,36 @@
     <collision>
       <geometry>
         <mesh filename="collision_convex/link_4_collision_0_part_2.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_4_collision_0_part_3.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_4_collision_0_part_4.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_4_collision_0_part_5.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_4_collision_0_part_6.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_4_collision_0_part_7.obj"/>
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
@@ -239,18 +383,6 @@
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_8.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_9.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
   </link>
   <link name="link_6">
     <inertial>
@@ -309,6 +441,12 @@
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_6_collision_0_part_7.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
   </link>
   <link name="link_7">
     <inertial>
@@ -358,6 +496,18 @@
     <collision>
       <geometry>
         <mesh filename="collision_convex/link_7_collision_0_part_5.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_7_collision_0_part_6.obj"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <collision>
+      <geometry>
+        <mesh filename="collision_convex/link_7_collision_0_part_7.obj"/>
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
