@@ -5,11 +5,16 @@ on:
   push:
     branches: [main,ci-dev]
 
+# Cancel superseded runs on the same PR branch; never cancel pushes (run_id is unique).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   conda-pytest:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: install conda env with micromamba
         uses: mamba-org/setup-micromamba@v1.7.3
         with:
