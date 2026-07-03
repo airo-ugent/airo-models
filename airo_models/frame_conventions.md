@@ -9,6 +9,11 @@ For arms, we expect two frames:
 
 For end-effectors such as grippers, we expect:
 - a `tool0` frame that corresponds to the mechanical interface with the robot arm.
+- a `TCP` frame that corresponds to the end of the fingertip/part that would be used for manip.
+
+For cameras, we expect:
+-  `base_link` frane that is at the origin of the lens that is used for camera calibration. This is usually the (left) RGB sensor. orientation is z along optical axis pointing away from the camera body. Y downwards. 
+
 
 
 
