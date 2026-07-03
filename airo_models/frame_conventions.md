@@ -1,23 +1,29 @@
-# AIRO model frame naming conventions
+# AIRO model frame conventions
 
-Our conventions are mostly derrived from ROS (see below).
+Our conventions are mostly derived from ROS (see below).
+
+## Coordinate convention
+
+The standard convention is **X+ forward, Z+ up** (right-handed).
+
+## Geometry origin and orientation by category
+
+**Arms**
+We expect two frames:
+
+- A `base` frame coincident with the manufacturer's native base frame (z-upward; rotation around z may differ per manufacturer).
+- A `tool0` frame at the flange, coincident with the manufacturer's tool frame (z-forward out of the flange).
+
+**Grippers / end-effectors**
 
 
-For arms, we expect two frames:
--  a `base` frame that corresponds with the base frame of the manufacturer, which is usually z-upward, but rotation around z-axis can differ.
-- a `tool0` frame at the flange, corresponding to the manufacturer tool frame,  which is usually z-forward.
-
-For end-effectors such as grippers, we expect:
-- a `base_link` frame that corresponds to the mechanical interface with the robot arm, this frame can be welded to the `tool0` frame of the robot arm to attach the gripper.
-- a `TCP` frame that corresponds to the end of the fingertip/part that would be used for manip.
-
-For cameras, we expect:
--  `base_link` frane that is at the origin of the lens that is used for camera calibration. This is usually the (left) RGB sensor. orientation is z along optical axis pointing away from the camera body. Y downwards. 
+- A `base_link` frame that corresponds to the mechanical interface with the robot arm; this frame can be welded to the `tool0` frame of the robot arm to attach the gripper.
+Its origin 
+- A `TCP` frame at the end of the fingertip / working point used for manipulation. Z points outwards and X is closing direction of the fingers.
 
 
-
-
-
+**Cameras**
+- a  `base_link` frame at the center of the lens used for camera calibration — usually the (left) RGB sensor. Left is defined egocentric (looking out of the camera). Z+ forward through the lens (optical axis pointing away from the camera body); X+ right; Y+ downward.
 
 # ROS Frame Naming Conventions
 

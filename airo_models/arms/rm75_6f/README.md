@@ -45,3 +45,20 @@ python scripts/generate_convex_collision_meshes.py rm75_6f \
 python scripts/generate_primitive_collision_meshes.py rm75_6f \
     --axis-map link_2:y,link_4:y,link_6:y,link_7:z
 ```
+
+
+
+## Drake compatibility
+
+The visual meshes are provided as `.obj` files (in `visual/`).
+Drake does not support STL for visual geometry, so the original `.STL` files
+from the upstream source were converted to `.obj` using `trimesh`:
+
+```bash
+cd airo_models/arms/rm75_6f/visual
+for stl in *.STL; do
+    python3 -c "import trimesh; trimesh.load('$stl').export('${stl%.STL}.obj')"
+done
+```
+
+The original `.STL` files are kept alongside the `.obj` files for reference.

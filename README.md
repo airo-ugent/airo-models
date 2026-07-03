@@ -55,11 +55,20 @@ and move the actuated joints. Use `--watch` to auto-reload the model whenever th
 changes on disk (handy while hand-tuning collision primitives).
 
 ## Modeling conventions
-The standard convention we follow is X+ forward, Z+ up.
 
-For cameras, we follow Z+ forward through the eye of the camera, X+ right. The origin of the camera is at the center of the (left) lens. Left is defined egocentric of the camera (i.e. looking out of the eyes of the camera).
+### Frames
+See [`airo_models/frame_conventions.md`](airo_models/frame_conventions.md) for the full conventions — coordinate axes, per-category origin/orientation rules, and required frames (`base`, `tool0`, `TCP`, `base_link`).
 
-For grippers, we follow Z+ pointing outwards from the fingers and X in the direction in which the parallel gripper closes its fingers. The origin of the gripper (`base_link`) is at the mounting point of its base.
+### Mesh format
+
+Meshes must be provided as **`.obj` files**. Drake does not support STL for geometry. When upstream sources provide `.STL` meshes, convert them with `trimesh` before adding:
+```bash
+python3 -c "import trimesh; trimesh.load('mesh.STL').export('mesh.obj')"
+```
+
+### Collision meshes
+Also keep in mind that collision meshes should be convex and as simple as possible in terms of mesh count and vertex count per mesh, to reduce the cost of collision checking. using cylinder and sphere primitives makes collision checking often even cheaper (for an example, have a look at how Curobo only uses spheres)
+
 
 ## Development
 ### Local installation
