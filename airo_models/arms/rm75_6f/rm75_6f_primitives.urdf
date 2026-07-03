@@ -225,7 +225,7 @@
     <parent link="link_6"/>
     <child link="link_7"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-6.28" upper="6.28" effort="10" velocity="3.14"/>
+    <limit lower="-6.2832" upper="6.2832" effort="10" velocity="3.14"/>
   </joint>
   <joint name="base_link-base" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
