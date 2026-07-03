@@ -450,4 +450,32 @@
       effort="10"
       velocity="3.14" />
   </joint>
+  <!-- ROS-Industrial base frame: coincident with base_link (manufacturer base frame, no z-rotation). -->
+  <link
+    name="base" />
+  <joint
+    name="base_link-base"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="base" />
+  </joint>
+  <!-- ROS-Industrial tool0 flange frame: coincident with link_7 (manufacturer tool frame, no z-rotation). -->
+  <link
+    name="tool0" />
+  <joint
+    name="link_7-tool0"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_7" />
+    <child
+      link="tool0" />
+  </joint>
 </robot>

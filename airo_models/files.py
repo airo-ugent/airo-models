@@ -1,6 +1,6 @@
 import os
 
-AIRO_MODEL_NAMES = ["ur3e", "ur5e", "rm75_6f", "rm75_6f_convex_collision", "robotiq_2f_85"]
+AIRO_MODEL_NAMES = ["ur3e", "ur5e", "rm75_6f", "rm75_6f_convex_collision", "rm75_6f_primitives", "robotiq_2f_85"]
 
 
 def get_urdf_path(name: str) -> str:
@@ -20,6 +20,7 @@ def get_urdf_path(name: str) -> str:
         "ur5e": os.path.join(airo_models_dir, "arms", "ur5e", "ur5e.urdf"),
         "rm75_6f": os.path.join(airo_models_dir, "arms", "rm75_6f", "rm75_6f.urdf"),
         "rm75_6f_convex_collision": os.path.join(airo_models_dir, "arms", "rm75_6f", "rm75_6f_convex_collision.urdf"),
+        "rm75_6f_primitives": os.path.join(airo_models_dir, "arms", "rm75_6f", "rm75_6f_primitives.urdf"),
         "robotiq_2f_85": os.path.join(airo_models_dir, "grippers", "robotiq_2f_85", "urdf", "robotiq_2f_85.urdf"),
         "schunk_egk40": os.path.join(airo_models_dir, "grippers", "schunk_egk40", "urdf", "schunk_egk40.urdf"),
         "schunk_egk40_magneto": os.path.join(

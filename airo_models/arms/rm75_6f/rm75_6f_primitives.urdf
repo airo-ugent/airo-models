@@ -16,46 +16,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="-0.0021500494331121445 1.862645149230957e-09 0.06925000243233334" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/base_link_collision_0_part_0.obj"/>
+        <cylinder length="0.13850000514891364" radius="0.05714995227754116"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/base_link_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/base_link_collision_0_part_2.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/base_link_collision_0_part_3.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/base_link_collision_0_part_4.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/base_link_collision_0_part_5.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/base_link_collision_0_part_6.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="link_1">
@@ -74,16 +38,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="1.862645149230957e-09 -0.013514125719666481 -0.030749958008527756" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/link_1_collision_0_part_0.obj"/>
+        <cylinder length="0.14250008016824722" radius="0.054514115676283836"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_1_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="link_2">
@@ -102,16 +60,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="1.862645149230957e-09 -0.05600000359117985 0.006000012159347534" rpy="-1.5707963267948966 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/link_2_collision_0_part_0.obj"/>
+        <cylinder length="0.19299999997019768" radius="0.04099998623132706"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_2_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="link_3">
@@ -130,16 +82,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="2.4065375328063965e-06 -0.016000084578990936 -0.034749964252114296" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/link_3_collision_0_part_0.obj"/>
+        <cylinder length="0.1375000737607479" radius="0.05100001394748688"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_3_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="link_4">
@@ -158,22 +104,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="-8.046627044677734e-07 -0.04725000075995922 0.007999950088560581" rpy="-1.5707963267948966 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/link_4_collision_0_part_0.obj"/>
+        <cylinder length="0.16249999776482582" radius="0.037000044248998165"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_4_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_4_collision_0_part_2.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="link_5">
@@ -192,64 +126,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="1.862645149230957e-09 -0.012500018812716007 -0.026499957777559757" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_0.obj"/>
+        <cylinder length="0.11000007204711437" radius="0.04149998631328344"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_2.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_3.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_4.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_5.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_6.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_7.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_8.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_5_collision_0_part_9.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="link_6">
@@ -268,46 +148,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="-9.08970832824707e-07 -0.04326255526393652 0.005750030279159546" rpy="-1.5707963267948966 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/link_6_collision_0_part_0.obj"/>
+        <cylinder length="0.1434748787432909" radius="0.034249961376190186"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_6_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_6_collision_0_part_2.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_6_collision_0_part_3.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_6_collision_0_part_4.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_6_collision_0_part_5.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_6_collision_0_part_6.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="link_7">
@@ -326,40 +170,10 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="0.0035964511334896088 -0.0037924665957689285 -0.028749996547102974" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="collision_convex/link_7_collision_0_part_0.obj"/>
+        <cylinder length="0.05750000899195662" radius="0.03316052071750164"/>
       </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_7_collision_0_part_1.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_7_collision_0_part_2.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_7_collision_0_part_3.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_7_collision_0_part_4.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="collision_convex/link_7_collision_0_part_5.obj"/>
-      </geometry>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
   </link>
   <link name="base"/>
