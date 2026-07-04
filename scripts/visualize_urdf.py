@@ -48,7 +48,7 @@ def resolve_urdf_path(name_or_path: str) -> str:
         ) from e
 
 
-def main() -> None:
+def main() -> None:  # noqa: C901
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("model", help="A known model name (e.g. 'ur5e') or a path to a URDF file.")
     parser.add_argument("--collision", action="store_true", help="Also load the collision meshes.")
