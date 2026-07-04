@@ -145,8 +145,8 @@ def main() -> None:
 
     # One slider per actuated joint; initialise at the middle of each range.
     joint_limits = urdf_ref[0].get_actuated_joint_limits()
-    slider_handles = []
-    initial_config = []
+    slider_handles: list[Any] = []
+    initial_config: list[float] = []
     with server.gui.add_folder("Joints"):
         reset_button = server.gui.add_button("Reset")
         for joint_name, (lower, upper) in joint_limits.items():
@@ -170,7 +170,7 @@ def main() -> None:
             initial_config.append(initial)
 
     @reset_button.on_click
-    def _(_) -> None:
+    def _(_: Any) -> None:
         for slider, value in zip(slider_handles, initial_config):
             slider.value = value
 
