@@ -37,6 +37,7 @@ Issues = "https://github.com/airo-ugent/airo-models/issues"
 
 [dependency-groups]
 dev = [
+    "mypy>=1.0.0",
     "pre-commit>=4.5.0",
     "pytest>=9.0.1",
 ]

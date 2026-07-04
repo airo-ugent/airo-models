@@ -48,7 +48,7 @@ def resolve_urdf_path(name_or_path: str) -> str:
         ) from e
 
 
-def main() -> None:
+def main() -> None:  # noqa: C901
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("model", help="A known model name (e.g. 'ur5e') or a path to a URDF file.")
     parser.add_argument("--collision", action="store_true", help="Also load the collision meshes.")
@@ -145,8 +145,8 @@ def main() -> None:
 
     # One slider per actuated joint; initialise at the middle of each range.
     joint_limits = urdf_ref[0].get_actuated_joint_limits()
-    slider_handles = []
-    initial_config = []
+    slider_handles: list[Any] = []
+    initial_config: list[float] = []
     with server.gui.add_folder("Joints"):
         reset_button = server.gui.add_button("Reset")
         for joint_name, (lower, upper) in joint_limits.items():
@@ -170,7 +170,7 @@ def main() -> None:
             initial_config.append(initial)
 
     @reset_button.on_click
-    def _(_) -> None:
+    def _(_: Any) -> None:
         for slider, value in zip(slider_handles, initial_config):
             slider.value = value
 

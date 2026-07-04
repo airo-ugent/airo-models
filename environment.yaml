@@ -15,5 +15,4 @@ dependencies:
     - pytest
     - pre-commit
     - mypy
-    - darglint
     - -e .
