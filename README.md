@@ -35,6 +35,48 @@ print(AIRO_MODEL_NAMES)
 >>> ['ur3e', 'ur5e', 'robotiq_2f_85']
 ```
 
+### URDF Primitives
+The `airo_models` package provides convenient functions to generate URDFs for basic geometric shapes without needing to write URDF files by hand. This is useful for creating collision geometries, obstacles, or simple models.
+
+Supported shapes are: **box**, **sphere**, **cylinder**, and **mesh**. Each shape has four functions available for different use cases:
+
+1. `{shape}_geometry_dict(...)` — Returns a dictionary representation of just the geometry. Use this to embed a primitive in a more complex URDF structure.
+2. `{shape}_dict(...)` — Returns a dictionary representation of a complete single-link URDF model. Use this to manipulate the URDF as a dictionary (e.g., to edit properties).
+3. `{shape}_urdf(...)` — Returns the URDF as an XML string. Use this to inspect or write the URDF to a file.
+4. `{shape}_urdf_path(...)` — Generates and writes the URDF to a temporary file, returning the path. Use this when you need to load the URDF into a simulator or robotics library.
+
+All shape functions accept `name` and (optionally) `rgba` parameters to customize the model name and visual color. The URDF follows the modeling convention: X+ forward, Z+ up, with the origin at the center of the shape.
+
+#### Examples
+
+Generate a box URDF and get the path for use with Drake or another simulator:
+```python
+import airo_models
+
+# Create a red box with dimensions (0.5, 1.0, 2.0) meters
+box_path = airo_models.box_urdf_path(size=(0.5, 1.0, 2.0), name="my_box", rgba=(1.0, 0.0, 0.0, 1.0))
+```
+
+Create a sphere and inspect the XML:
+```python
+# Create a yellow sphere with radius 0.1 meters
+sphere_xml = airo_models.sphere_urdf(radius=0.1, name="ball", rgba=(1.0, 1.0, 0.0, 1.0))
+print(sphere_xml)
+```
+
+Generate a cylinder as a dictionary for further manipulation:
+```python
+# Create a cylinder and modify it
+cyl_dict = airo_models.cylinder_dict(length=1.0, radius=0.05, name="rod")
+# Now you can edit cyl_dict using airo_models.urdf functions before writing it
+```
+
+Wrap an existing mesh file:
+```python
+# Load a mesh file into a URDF
+mesh_path = airo_models.mesh_urdf_path("/path/to/your/model.obj", name="custom_object")
+```
+
 ## Visualization
 You can visualize any model in your browser (visual and/or collision meshes, coordinate frames for every link, with sliders to move the joints) using the `visualize_urdf.py` script, which is powered by [viser](https://github.com/nerfstudio-project/viser).
 
