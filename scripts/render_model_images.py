@@ -20,6 +20,7 @@ Requires the ``render`` optional dependencies:
 import argparse
 import os
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 
@@ -39,7 +40,7 @@ GALLERY_GROUPS: list[tuple[str, list[str]]] = [
 ]
 
 
-def _bake_color(mesh: "trimesh.Trimesh") -> "trimesh.Trimesh":  # type: ignore[name-defined]
+def _bake_color(mesh: Any) -> Any:
     """Return a copy of *mesh* with the diffuse/PBR base color baked into vertex colors.
 
     pyrender's MetallicRoughnessMaterial internally creates OpenGL textures even for
@@ -62,7 +63,7 @@ def _bake_color(mesh: "trimesh.Trimesh") -> "trimesh.Trimesh":  # type: ignore[n
     return m
 
 
-def build_pyrender_scene(tm_scene: "trimesh.scene.Scene") -> "pyrender.Scene":  # type: ignore[name-defined]
+def build_pyrender_scene(tm_scene: Any) -> Any:
     import pyrender
     import trimesh
 
@@ -158,7 +159,7 @@ def build_gallery_gif(out_dir: Path, size: int = 320, frame_ms: int = 2000) -> N
         font_cat = ImageFont.truetype(font_path_bold, 16)
         font_name = ImageFont.truetype(font_path_reg, 17)
     except OSError:
-        font_cat = font_name = ImageFont.load_default()
+        font_cat = font_name = ImageFont.load_default()  # type: ignore[assignment]
 
     bg = (245, 245, 245)
     frames: list[Image.Image] = []
@@ -181,7 +182,7 @@ def build_gallery_gif(out_dir: Path, size: int = 320, frame_ms: int = 2000) -> N
             draw.text((tx, ty), category, font=font_cat, fill=(255, 255, 255))
 
             # Model image
-            model_img = Image.open(img_path).convert("RGB").resize((size, size), Image.LANCZOS)
+            model_img = Image.open(img_path).convert("RGB").resize((size, size), Image.Resampling.LANCZOS)
             frame.paste(model_img, (pad, cat_h + pad))
 
             # Model name
@@ -217,7 +218,9 @@ def main() -> None:
         help="Directory to write images to (default: docs/images)",
     )
     parser.add_argument("--size", type=int, default=320, help="Square model image resolution in pixels (default: 320)")
-    parser.add_argument("--models", nargs="+", default=None, help="Render only the listed model names (skips GIF generation)")
+    parser.add_argument(
+        "--models", nargs="+", default=None, help="Render only the listed model names (skips GIF generation)"
+    )
     parser.add_argument("--frame-ms", type=int, default=2000, help="Milliseconds per GIF frame (default: 2000)")
     args = parser.parse_args()
 
@@ -225,7 +228,9 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     model_names = args.models if args.models else airo_models.AIRO_MODEL_NAMES
-    ok, skipped, failed = [], [], []
+    ok: list[str] = []
+    skipped: list[str] = []
+    failed: list[str] = []
 
     for name in model_names:
         out_path = str(out_dir / f"{name}.png")
