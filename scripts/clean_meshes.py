@@ -156,6 +156,7 @@ def process_urdf_meshes(urdf_path: str, check_only: bool) -> None:
     for mesh_path in mesh_paths:
         # process=False keeps the mesh exactly as stored so we measure the real defects.
         mesh = trimesh.load(mesh_path, force="mesh", process=False)
+        assert isinstance(mesh, trimesh.Trimesh), f"Expected a single mesh from {mesh_path}, got {type(mesh)}"
         rel = os.path.relpath(mesh_path, urdf_dir)
 
         before = mesh_defects(mesh)
