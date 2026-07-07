@@ -34,7 +34,7 @@ defines a single Six-Axis Force variant — **RM75-6F** — with DH parameter
 | GitHub folder | `joint_7` translation | Matches d₇ = 161.2 mm? |
 |---|---|---|
 | `RM75-6F` | 172.5 mm | ✗ — no official parameter set; likely an older/different flange revision |
-| **`RM75-6FB`** | **161.2 mm** | **✓ — matches the documented RM75-6F robot** |
+| **`RM75-6FB`** | **161.2 mm** | **✓ — matches the documented RM75-6F robot and (joint config, tool0 pose) pairs from the controlbox ([see test](../../../test/test_arm_models_FK.py) )** |
 
 The `-V` variants (e.g. `RM75-6F-V`) add phantom camera links and were skipped.
 
