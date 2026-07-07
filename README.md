@@ -1,6 +1,53 @@
 # airo-models
 Curated URDFs and 3D models of the robots and gripper used at airo.
 
+## Model gallery
+
+<table>
+  <tr>
+    <th colspan="3" align="left">Arms</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/ur3e.png" width="200"/><br/><code>ur3e</code></td>
+    <td align="center"><img src="docs/images/ur5e.png" width="200"/><br/><code>ur5e</code></td>
+    <td align="center"><img src="docs/images/rm75_6f.png" width="200"/><br/><code>rm75_6f</code></td>
+  </tr>
+  <tr>
+    <th colspan="3" align="left">Grippers</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/robotiq_2f_85.png" width="200"/><br/><code>robotiq_2f_85</code></td>
+    <td align="center"><img src="docs/images/schunk_egk40.png" width="200"/><br/><code>schunk_egk40</code></td>
+    <td align="center"><img src="docs/images/schunk_egk40_magneto.png" width="200"/><br/><code>schunk_egk40_magneto</code></td>
+  </tr>
+  <tr>
+    <th colspan="3" align="left">Cameras</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/zed2i.png" width="200"/><br/><code>zed2i</code></td>
+    <td align="center"><img src="docs/images/zedm.png" width="200"/><br/><code>zedm</code></td>
+    <td align="center"><img src="docs/images/d435.png" width="200"/><br/><code>d435</code></td>
+  </tr>
+  <tr>
+    <th colspan="3" align="left">Mobile platforms</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/kelo_robile_battery.png" width="200"/><br/><code>kelo_robile_battery</code></td>
+    <td align="center"><img src="docs/images/kelo_robile_cpu.png" width="200"/><br/><code>kelo_robile_cpu</code></td>
+    <td align="center"><img src="docs/images/kelo_robile_wheel.png" width="200"/><br/><code>kelo_robile_wheel</code></td>
+  </tr>
+  <tr>
+    <th colspan="3" align="left">Environment</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/table8080.png" width="200"/><br/><code>table8080</code></td>
+    <td align="center"><img src="docs/images/mounting_plate_ur3e.png" width="200"/><br/><code>mounting_plate_ur3e</code></td>
+    <td align="center"><img src="docs/images/mounting_plate_ur5e.png" width="200"/><br/><code>mounting_plate_ur5e</code></td>
+  </tr>
+</table>
+
+> Preview images are rendered by [`scripts/render_model_images.py`](scripts/render_model_images.py). Run it after adding new models to keep the gallery up to date.
+
 ## Installation
 `airo-models` is available on PyPi and can be installed with pip:
 ```
