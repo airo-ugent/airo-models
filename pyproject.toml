@@ -20,6 +20,8 @@ classifiers = [
 ]
 
 dependencies = [
+    "coacd>=1.0.11",
+    "pyroki",
     "xmltodict>=1.0.2",
 ]
 
@@ -48,3 +50,6 @@ dev = [
     "pre-commit>=4.5.0",
     "pytest>=9.0.1",
 ]
+
+[tool.uv.sources]
+pyroki = { git = "https://github.com/chungmin99/pyroki.git" }

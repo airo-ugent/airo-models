@@ -8,6 +8,8 @@ MODEL_NAME_TO_URDF_PATH = {
     "ur5e_convex_collisions": os.path.join(AIRO_MODELS_DIR, "arms", "ur5e", "ur5e_convex_collisions.urdf"),
     "rm75_6f": os.path.join(AIRO_MODELS_DIR, "arms", "rm75_6f", "rm75_6f.urdf"),
     "rm75_6f_primitives": os.path.join(AIRO_MODELS_DIR, "arms", "rm75_6f", "rm75_6f_primitives.urdf"),
+    "rm75_6fb": os.path.join(AIRO_MODELS_DIR, "arms", "rm75_6fb", "rm75_6fb.urdf"),
+    "rm75_6fb_primitives": os.path.join(AIRO_MODELS_DIR, "arms", "rm75_6fb", "rm75_6fb_primitives.urdf"),
     "robotiq_2f_85": os.path.join(AIRO_MODELS_DIR, "grippers", "robotiq_2f_85", "urdf", "robotiq_2f_85.urdf"),
     "schunk_egk40": os.path.join(AIRO_MODELS_DIR, "grippers", "schunk_egk40", "urdf", "schunk_egk40.urdf"),
     "schunk_egk40_magneto": os.path.join(
