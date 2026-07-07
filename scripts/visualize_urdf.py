@@ -1,14 +1,16 @@
 """Visualize an airo-models URDF in the browser using viser.
 
-Shows the visual and/or collision meshes and provides GUI sliders to move the
+Shows the visual and collision meshes and provides GUI sliders to move the
 actuated joints. Run with a known model name (see ``AIRO_MODEL_NAMES``) or a
 path to any URDF file:
 
     python scripts/visualize_urdf.py ur5e
-    python scripts/visualize_urdf.py robotiq_2f_85 --collision
+    python scripts/visualize_urdf.py robotiq_2f_85
     python scripts/visualize_urdf.py path/to/robot.urdf
 
 Then open the printed URL (default http://localhost:8080) in your browser.
+Both visual and collision meshes are shown by default and can be toggled
+independently in the "Display" panel.
 
 Requires the optional visualization dependencies::
 
@@ -51,7 +53,6 @@ def resolve_urdf_path(name_or_path: str) -> str:
 def main() -> None:  # noqa: C901
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("model", help="A known model name (e.g. 'ur5e') or a path to a URDF file.")
-    parser.add_argument("--collision", action="store_true", help="Also load the collision meshes.")
     parser.add_argument("--host", default="0.0.0.0", help="Host to serve on (default: 0.0.0.0).")
     parser.add_argument("--port", type=int, default=8080, help="Port to serve on (default: 8080).")
     parser.add_argument(
@@ -75,33 +76,27 @@ def main() -> None:  # noqa: C901
     def build_scene() -> ViserUrdf:
         server.scene.reset()
         server.scene.add_grid("/grid", width=2.0, height=2.0)
-        urdf_for_viz = (
-            yourdfpy.URDF.load(
-                urdf_path,
-                build_collision_scene_graph=True,
-                load_collision_meshes=True,
-            )
-            if args.collision
-            else yourdfpy.URDF.load(urdf_path)
+        urdf_for_viz = yourdfpy.URDF.load(
+            urdf_path,
+            build_collision_scene_graph=True,
+            load_collision_meshes=True,
         )
         return ViserUrdf(
             server,
             urdf_for_viz,
             load_meshes=True,
-            load_collision_meshes=args.collision,
+            load_collision_meshes=True,
         )
 
     # Mutable container so GUI callbacks and the watch loop share the current model.
     urdf_ref = [build_scene()]
 
-    # Visibility toggles for visual and (optionally) collision meshes.
+    # Visibility toggles for visual and collision meshes.
     with server.gui.add_folder("Display"):
         show_visual = server.gui.add_checkbox("Show visual", initial_value=True)
         show_visual.on_update(lambda _: setattr(urdf_ref[0], "show_visual", show_visual.value))
-        show_collision = None
-        if args.collision:
-            show_collision = server.gui.add_checkbox("Show collision", initial_value=True)
-            show_collision.on_update(lambda _: setattr(urdf_ref[0], "show_collision", show_collision.value))
+        show_collision = server.gui.add_checkbox("Show collision", initial_value=True)
+        show_collision.on_update(lambda _: setattr(urdf_ref[0], "show_collision", show_collision.value))
 
     # One coordinate frame per link. Handles are re-created on reload; the GUI
     # checkboxes below persist and drive their visibility.
@@ -209,8 +204,7 @@ def main() -> None:  # noqa: C901
             urdf_ref[0] = build_scene()
             urdf_ref[0].update_cfg(cfg)
             urdf_ref[0].show_visual = show_visual.value
-            if show_collision is not None:
-                urdf_ref[0].show_collision = show_collision.value
+            urdf_ref[0].show_collision = show_collision.value
             add_link_frames()
             update_frame_poses()
             update_frame_visibility()
