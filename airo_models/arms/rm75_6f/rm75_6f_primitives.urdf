@@ -16,9 +16,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="-0.0021500494331121445 1.862645149230957e-09 0.06925000243233334" rpy="0 0 0"/>
+      <origin xyz="-0.0021500500000000006 5.000000000837668e-09 0.069250005" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.13850000514891364" radius="0.05714995227754116"/>
+        <cylinder length="0.13850001" radius="0.05714995"/>
       </geometry>
     </collision>
   </link>
@@ -38,9 +38,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="1.862645149230957e-09 -0.013514125719666481 -0.030749958008527756" rpy="0 0 0"/>
+      <origin xyz="5.000000000837668e-09 -0.013514125000000002 -0.030749959999999996" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.14250008016824722" radius="0.054514115676283836"/>
+        <cylinder length="0.14250008" radius="0.054514115"/>
       </geometry>
     </collision>
   </link>
@@ -60,9 +60,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="1.862645149230957e-09 -0.05600000359117985 0.006000012159347534" rpy="-1.5707963267948966 0 0"/>
+      <origin xyz="0.0 -0.055999999999999994 0.006000015000000001" rpy="-1.5707963267948966 0 0"/>
       <geometry>
-        <cylinder length="0.19299999997019768" radius="0.04099998623132706"/>
+        <cylinder length="0.193" radius="0.040999985"/>
       </geometry>
     </collision>
   </link>
@@ -82,9 +82,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="2.4065375328063965e-06 -0.016000084578990936 -0.034749964252114296" rpy="0 0 0"/>
+      <origin xyz="2.4099999999978305e-06 -0.016000085000000004 -0.034749964999999994" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.1375000737607479" radius="0.05100001394748688"/>
+        <cylinder length="0.13750007" radius="0.051000015"/>
       </geometry>
     </collision>
   </link>
@@ -104,9 +104,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="-8.046627044677734e-07 -0.04725000075995922 0.007999950088560581" rpy="-1.5707963267948966 0 0"/>
+      <origin xyz="-8.049999999995561e-07 -0.04725 0.007999949999999999" rpy="-1.5707963267948966 0 0"/>
       <geometry>
-        <cylinder length="0.16249999776482582" radius="0.037000044248998165"/>
+        <cylinder length="0.1625" radius="0.03700004"/>
       </geometry>
     </collision>
   </link>
@@ -126,9 +126,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="1.862645149230957e-09 -0.012500018812716007 -0.026499957777559757" rpy="0 0 0"/>
+      <origin xyz="0.0 -0.01250002 -0.026499955" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.11000007204711437" radius="0.04149998631328344"/>
+        <cylinder length="0.11000006999999999" radius="0.04149999"/>
       </geometry>
     </collision>
   </link>
@@ -148,9 +148,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="-9.08970832824707e-07 -0.04326255526393652 0.005750030279159546" rpy="-1.5707963267948966 0 0"/>
+      <origin xyz="-9.049999999989622e-07 -0.043262554999999994 0.00575003" rpy="-1.5707963267948966 0 0"/>
       <geometry>
-        <cylinder length="0.1434748787432909" radius="0.034249961376190186"/>
+        <cylinder length="0.14347487" radius="0.034249959999999996"/>
       </geometry>
     </collision>
   </link>
@@ -170,9 +170,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.0035964511334896088 -0.0037924665957689285 -0.028749996547102974" rpy="0 0 0"/>
+      <origin xyz="0.0020500100000000014 4.150000000001375e-07 -0.023" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.05750000899195662" radius="0.03316052071750164"/>
+        <cylinder length="0.046" radius="0.03065"/>
       </geometry>
     </collision>
   </link>
@@ -221,7 +221,7 @@
     <limit lower="-2.234" upper="2.234" effort="10" velocity="3.14"/>
   </joint>
   <joint name="joint_7" type="revolute">
-    <origin xyz="0 -0.1725 0" rpy="1.5708 0 0"/>
+    <origin xyz="0 -0.1612 0" rpy="1.5708 0 0"/>
     <parent link="link_6"/>
     <child link="link_7"/>
     <axis xyz="0 0 1"/>

@@ -60,18 +60,7 @@ _RM75_FK_TEST_CASES = [
 
 @pytest.mark.parametrize("joint_angles_deg,expected_xyz_mm,expected_rpy_rad", _RM75_FK_TEST_CASES)
 def test_rm75_6f_fk(joint_angles_deg, expected_xyz_mm, expected_rpy_rad):
-    # rm75_6f has a 11.3 mm longer link_7 than the physical robot (which is rm75_6fb),
-    # so position tolerance is generous. Orientation still matches perfectly.
     robot = _load_pyroki_robot("rm75_6f")
-    xyz_mm, rpy_rad = _fk_tool0_xyz_rpy(robot, joint_angles_deg)
-    np.testing.assert_allclose(xyz_mm, expected_xyz_mm, atol=15.0)
-    np.testing.assert_allclose(rpy_rad, expected_rpy_rad, atol=_ORIENTATION_TOL_RAD)
-
-
-@pytest.mark.parametrize("joint_angles_deg,expected_xyz_mm,expected_rpy_rad", _RM75_FK_TEST_CASES)
-def test_rm75_6fb_fk(joint_angles_deg, expected_xyz_mm, expected_rpy_rad):
-    # rm75_6fb matches the physical robot exactly.
-    robot = _load_pyroki_robot("rm75_6fb")
     xyz_mm, rpy_rad = _fk_tool0_xyz_rpy(robot, joint_angles_deg)
     np.testing.assert_allclose(xyz_mm, expected_xyz_mm, atol=1.0)
     np.testing.assert_allclose(rpy_rad, expected_rpy_rad, atol=_ORIENTATION_TOL_RAD)
