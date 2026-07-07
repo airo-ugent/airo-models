@@ -62,7 +62,7 @@ _RM75_FK_TEST_CASES = [
 def test_rm75_6f_fk(joint_angles_deg, expected_xyz_mm, expected_rpy_rad):
     robot = _load_pyroki_robot("rm75_6f")
     xyz_mm, rpy_rad = _fk_tool0_xyz_rpy(robot, joint_angles_deg)
-    np.testing.assert_allclose(xyz_mm, expected_xyz_mm, atol=1.0)
+    np.testing.assert_allclose(xyz_mm, expected_xyz_mm, atol=0.01)
     np.testing.assert_allclose(rpy_rad, expected_rpy_rad, atol=_ORIENTATION_TOL_RAD)
 
 
