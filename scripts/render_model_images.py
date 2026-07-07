@@ -1,15 +1,16 @@
-"""Render a preview image for every registered airo-models URDF.
+"""Render a preview image for every registered airo-models URDF and compose them
+into an animated GIF gallery (``docs/images/gallery.gif``).
 
-Saves one PNG per model to an output directory (default: ``docs/images/``
-relative to the repo root).  Run from the repo root:
+Run from the repo root:
 
     python scripts/render_model_images.py
 
 Optional arguments:
 
     --output-dir PATH    Directory to write images to (default: docs/images)
-    --size N             Square image resolution in pixels (default: 400)
-    --models A B ...     Render only the listed model names
+    --size N             Square model image resolution in pixels (default: 320)
+    --models A B ...     Render only the listed model names (skips GIF generation)
+    --frame-ms N         Milliseconds per GIF frame (default: 2000)
 
 Requires the ``render`` optional dependencies:
 
@@ -25,6 +26,17 @@ import numpy as np
 os.environ.setdefault("PYOPENGL_PLATFORM", "egl")
 
 import airo_models
+
+# Gallery display order: (category label, [model names]).
+# Only canonical models are shown; variant/sub-part names are rendered to PNG
+# but excluded from the GIF.
+GALLERY_GROUPS: list[tuple[str, list[str]]] = [
+    ("Arms", ["ur3e", "ur5e", "rm75_6f"]),
+    ("Grippers", ["robotiq_2f_85", "schunk_egk40", "schunk_egk40_magneto"]),
+    ("Cameras", ["zed2i", "zedm", "d435"]),
+    ("Mobile platforms", ["kelo_robile_battery", "kelo_robile_cpu", "kelo_robile_wheel"]),
+    ("Environment", ["table8080", "mounting_plate_ur3e", "mounting_plate_ur5e"]),
+]
 
 
 def _bake_color(mesh: "trimesh.Trimesh") -> "trimesh.Trimesh":  # type: ignore[name-defined]
@@ -129,6 +141,74 @@ def render_urdf(urdf_path: str, out_path: str, size: int = 400) -> bool:
     return True
 
 
+def build_gallery_gif(out_dir: Path, size: int = 320, frame_ms: int = 2000) -> None:
+    """Compose per-model PNGs from *out_dir* into an animated GIF gallery."""
+    from PIL import Image, ImageDraw, ImageFont
+
+    font_path_bold = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+    font_path_reg = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
+
+    pad = 16
+    label_h = 48
+    cat_h = 32
+    w = size + 2 * pad
+    h = cat_h + size + label_h + 2 * pad
+
+    try:
+        font_cat = ImageFont.truetype(font_path_bold, 16)
+        font_name = ImageFont.truetype(font_path_reg, 17)
+    except OSError:
+        font_cat = font_name = ImageFont.load_default()
+
+    bg = (245, 245, 245)
+    frames: list[Image.Image] = []
+
+    for category, models in GALLERY_GROUPS:
+        for model in models:
+            img_path = out_dir / f"{model}.png"
+            if not img_path.exists():
+                print(f"  [gif] skipping {model} – PNG not found")
+                continue
+
+            frame = Image.new("RGB", (w, h), bg)
+            draw = ImageDraw.Draw(frame)
+
+            # Category banner
+            draw.rectangle([0, 0, w, cat_h], fill=(40, 40, 40))
+            bbox = font_cat.getbbox(category)
+            tx = (w - (bbox[2] - bbox[0])) // 2
+            ty = (cat_h - (bbox[3] - bbox[1])) // 2 - bbox[1]
+            draw.text((tx, ty), category, font=font_cat, fill=(255, 255, 255))
+
+            # Model image
+            model_img = Image.open(img_path).convert("RGB").resize((size, size), Image.LANCZOS)
+            frame.paste(model_img, (pad, cat_h + pad))
+
+            # Model name
+            label_y = cat_h + pad + size
+            bbox2 = font_name.getbbox(model)
+            tx2 = (w - (bbox2[2] - bbox2[0])) // 2
+            ty2 = label_y + (label_h - (bbox2[3] - bbox2[1])) // 2 - bbox2[1]
+            draw.text((tx2, ty2), model, font=font_name, fill=(30, 30, 30))
+
+            frames.append(frame)
+
+    if not frames:
+        print("  [gif] no frames – skipping gallery.gif")
+        return
+
+    gif_path = out_dir / "gallery.gif"
+    frames[0].save(
+        gif_path,
+        save_all=True,
+        append_images=frames[1:],
+        duration=frame_ms,
+        loop=0,
+        optimize=False,
+    )
+    print(f"\nSaved {gif_path}  ({len(frames)} frames, {gif_path.stat().st_size // 1024} KB)")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
@@ -136,8 +216,9 @@ def main() -> None:
         default=str(Path(__file__).resolve().parent.parent / "docs" / "images"),
         help="Directory to write images to (default: docs/images)",
     )
-    parser.add_argument("--size", type=int, default=400, help="Square image resolution in pixels (default: 400)")
-    parser.add_argument("--models", nargs="+", default=None, help="Render only the listed model names")
+    parser.add_argument("--size", type=int, default=320, help="Square model image resolution in pixels (default: 320)")
+    parser.add_argument("--models", nargs="+", default=None, help="Render only the listed model names (skips GIF generation)")
+    parser.add_argument("--frame-ms", type=int, default=2000, help="Milliseconds per GIF frame (default: 2000)")
     args = parser.parse_args()
 
     out_dir = Path(args.output_dir)
@@ -159,6 +240,9 @@ def main() -> None:
     print(f"\nDone: {len(ok)} rendered, {len(skipped)} skipped (no geometry), {len(failed)} errors.")
     if failed:
         print(f"  Errors: {failed}")
+
+    if args.models is None:
+        build_gallery_gif(out_dir, size=args.size, frame_ms=args.frame_ms)
 
 
 if __name__ == "__main__":
