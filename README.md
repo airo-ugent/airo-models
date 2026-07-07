@@ -35,6 +35,32 @@ print(AIRO_MODEL_NAMES)
 >>> ['ur3e', 'ur5e', 'robotiq_2f_85']
 ```
 
+### Combining URDFs
+Use `airo_models.urdf.attach_urdf` to merge multiple URDF models into one — for example, attaching a gripper and a wrist camera to a robot arm:
+```python
+import copy
+import airo_models
+from airo_models.urdf import attach_urdf, make_paths_absolute, read_urdf, write_urdf_to_tempfile
+
+arm_path = airo_models.get_urdf_path("rm75_6f")
+gripper_path = airo_models.get_urdf_path("robotiq_2f_85")
+camera_path = airo_models.get_urdf_path("d435")
+
+arm = read_urdf(arm_path)
+make_paths_absolute(arm, arm_path)
+
+attach_urdf(arm, copy.deepcopy(read_urdf(gripper_path)), parent_link="tool0",
+            child_prefix="robotiq_", attachment_urdf_path=gripper_path,
+            origin_xyz="0 0 0.02", freeze_joints=False)
+
+attach_urdf(arm, copy.deepcopy(read_urdf(camera_path)), parent_link="tool0",
+            child_prefix="d435_", attachment_urdf_path=camera_path,
+            origin_xyz="0 0.05 0", origin_rpy="0.5236 0 0")
+
+combined_path = write_urdf_to_tempfile(arm, prefix="arm_gripper_camera_")
+```
+See `scripts/combine_urdf_example.py` for a runnable demo that opens the result in the browser viewer.
+
 ### URDF Primitives
 The `airo_models` package provides convenient functions to generate URDFs for basic geometric shapes without needing to write URDF files by hand. This is useful for creating collision geometries, obstacles, or simple models.
 

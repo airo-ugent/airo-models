@@ -1,6 +1,6 @@
 # RealMan RM75-6F
 
-7-DoF  RM-75 arm with EEF Force-Torque sensor from RealMan Robotics. 
+7-DoF  RM-75 arm with EEF Force-Torque sensor from RealMan Robotics.
 
 Two models are provided. They share identical visual meshes, kinematics and
 frames, and differ only in their collision geometry.
