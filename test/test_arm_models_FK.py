@@ -1,6 +1,11 @@
 """
-sanity check for arm URDFs. FK(joint_config) should match the expected pose of tool0 in base frame, if not then the URDF is likely wrong.
+sanity check for arm URDFs.
+FK_urdf(joint_config) should match the actual pose of tool0 in base frame as reported by a real robot.
+If this is not the case the URDF is likely wrong.
 """
+
+import ast
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -34,28 +39,74 @@ def _fk_tool0_xyz_rpy(robot, joint_angles_deg: list[float]) -> tuple[np.ndarray,
     return xyz_mm, rpy
 
 
-# These config-pose combinations were collected from the Realman control UI (screenshots).
+def _fk_tool0_matrix(robot, joint_angles_rad: list[float]) -> np.ndarray:
+    """Return tool0 pose as a 4x4 homogeneous matrix (translation in metres).
+
+    The UR5e URDF defines base_link (ROS convention root) with two fixed
+    children both rotated 180° about Z: base_link_inertia (kinematic chain
+    root) and base (the robot's physical Base coordinate frame).  The reference
+    poses recorded on a real robot use the "base" frame, so we compute the
+    transform base -> tool0.
+    """
+    import jax.numpy as jnp
+
+    link_names = list(robot.links.names)
+    tool0_idx = link_names.index("tool0")
+    base_idx = link_names.index("base")
+
+    cfg = jnp.array(joint_angles_rad)
+    fk = robot.forward_kinematics(cfg)
+
+    def wxyz_xyz_to_matrix(wxyz_xyz: np.ndarray) -> np.ndarray:
+        R = Rotation.from_quat(wxyz_xyz[[1, 2, 3, 0]]).as_matrix()
+        T = np.eye(4)
+        T[:3, :3] = R
+        T[:3, 3] = wxyz_xyz[4:]
+        return T
+
+    T_base = wxyz_xyz_to_matrix(np.array(fk[base_idx]))
+    T_tool0 = wxyz_xyz_to_matrix(np.array(fk[tool0_idx]))
+    return np.linalg.inv(T_base) @ T_tool0
+
+
+def _load_poses_txt(path: Path) -> list[tuple[list[float], np.ndarray]]:
+    """Parse a poses .txt file where each non-comment line is semicolon-separated Python literals."""
+    cases = []
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split(";")
+        cases.append(tuple(ast.literal_eval(p) for p in parts))
+    return cases
+
+
+def _load_ur5e_poses(path: Path) -> list[tuple[list[float], np.ndarray]]:
+    """Parse ur5e_poses.txt: each non-comment line is 'joints_list;matrix_list'.
+
+    Source: https://github.com/Victorlouisdg/ur-analytic-ik/blob/main/tests/data/ur5e_poses.txt
+    Returns a list of (joint_angles_rad[6], 4x4 homogeneous matrix).
+    """
+    cases = []
+    for joints, matrix in _load_poses_txt(path):
+        cases.append((joints, np.array(matrix)))
+    return cases
+
+
+def _load_rm75_6f_poses(path: Path) -> list[tuple[list[float], list[float], list[float]]]:
+    """Parse rm75_6f_poses.txt: each non-comment line is 'joints_deg;xyz_mm;rpy_rad'.
+
+    Returns a list of (joint_angles_deg[7], tcp_xyz_mm[3], tcp_rpy_rad[3]).
+    """
+    return _load_poses_txt(path)
+
+
+_DATA_DIR = Path(__file__).parent / "data"
+_UR5E_TEST_CASES = _load_ur5e_poses(_DATA_DIR / "ur5e_poses.txt")
+
 # tcp_rpy_rad is (RX, RY, RZ) from the Realman UI = ZYX Euler (roll, pitch, yaw).
 _ORIENTATION_TOL_RAD = 0.01
-
-# Each entry: (joint_angles_deg[7], tcp_xyz_mm[3], tcp_rpy_rad[3])
-_RM75_FK_TEST_CASES = [
-    (
-        [-13.152, 39.428, -35.966, 69.564, -154.992, -78.321, 89.994],
-        [301.337, -182.199, 232.684],
-        [3.131, 0.043, -2.407],
-    ),
-    (
-        [-96.45, 2.389, -164.038, 90.346, -163.519, 23.722, 89.993],
-        [-42.518, 342.673, 570.810],
-        [-1.121, 0.275, 0.175],
-    ),
-    (
-        [-43.418, 38.982, -126.452, 65.982, -158.848, -38.713, 89.993],
-        [-164.606, -256.020, 589.512],
-        [-1.494, -0.274, 1.913],
-    ),
-]
+_RM75_FK_TEST_CASES = _load_rm75_6f_poses(_DATA_DIR / "rm75_6f_poses.txt")
 
 
 @pytest.mark.parametrize("joint_angles_deg,expected_xyz_mm,expected_rpy_rad", _RM75_FK_TEST_CASES)
@@ -66,9 +117,14 @@ def test_rm75_6f_fk(joint_angles_deg, expected_xyz_mm, expected_rpy_rad):
     np.testing.assert_allclose(rpy_rad, expected_rpy_rad, atol=_ORIENTATION_TOL_RAD)
 
 
+@pytest.mark.parametrize("joint_angles_rad,expected_matrix", _UR5E_TEST_CASES)
+def test_ur5e_fk(joint_angles_rad, expected_matrix):
+    # Reference poses were recorded on a real UR5e robot (base -> tool0 frames),
+    # so a ~1 cm / ~0.01 tolerance accounts for the URDF model vs physical arm.
+    robot = _load_pyroki_robot("ur5e")
+    T = _fk_tool0_matrix(robot, joint_angles_rad)
+    np.testing.assert_allclose(T, expected_matrix, atol=0.01)
+
+
 def test_ur3e_fk():
-    pass
-
-
-def test_ur5e_fk():
     pass
