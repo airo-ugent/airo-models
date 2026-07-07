@@ -75,9 +75,18 @@ def main() -> None:  # noqa: C901
     def build_scene() -> ViserUrdf:
         server.scene.reset()
         server.scene.add_grid("/grid", width=2.0, height=2.0)
+        urdf_for_viz = (
+            yourdfpy.URDF.load(
+                urdf_path,
+                build_collision_scene_graph=True,
+                load_collision_meshes=True,
+            )
+            if args.collision
+            else yourdfpy.URDF.load(urdf_path)
+        )
         return ViserUrdf(
             server,
-            Path(urdf_path),
+            urdf_for_viz,
             load_meshes=True,
             load_collision_meshes=args.collision,
         )
