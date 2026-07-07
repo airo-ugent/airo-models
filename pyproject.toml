@@ -38,6 +38,14 @@ collision = [
     "trimesh>=4.0.0",
     "numpy",
 ]
+# Dependencies for rendering model preview images (scripts/render_model_images.py).
+render = [
+    "yourdfpy>=0.0.56",
+    "trimesh>=4.0.0",
+    "pyrender>=0.1.45",
+    "Pillow>=10.0.0",
+    "numpy",
+]
 
 [project.urls]
 Homepage = "https://github.com/airo-ugent/airo-models"

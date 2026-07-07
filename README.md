@@ -46,7 +46,7 @@ Curated URDFs and 3D models of the robots and gripper used at airo.
   </tr>
 </table>
 
-> Preview images are rendered by [`scripts/render_model_images.py`](scripts/render_model_images.py). Run it after adding new models to keep the gallery up to date.
+> Preview images are rendered by [`scripts/render_model_images.py`](scripts/render_model_images.py) (`pip install airo-models[render]`). Run it after adding new models to keep the gallery up to date.
 
 ## Installation
 `airo-models` is available on PyPi and can be installed with pip:

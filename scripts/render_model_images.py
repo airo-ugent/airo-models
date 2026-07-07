@@ -11,25 +11,20 @@ Optional arguments:
     --size N             Square image resolution in pixels (default: 400)
     --models A B ...     Render only the listed model names
 
-Requires the ``viz`` and ``collision`` optional dependencies plus ``pyrender``
-and ``Pillow``:
+Requires the ``render`` optional dependencies:
 
-    pip install airo-models[viz,collision] pyrender Pillow
+    pip install airo-models[render]
 """
 
 import argparse
 import os
-import sys
 from pathlib import Path
 
 import numpy as np
 
-# Allow running from the repo root without installing the package.
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
 os.environ.setdefault("PYOPENGL_PLATFORM", "egl")
 
-import airo_models  # noqa: E402
+import airo_models
 
 
 def _bake_color(mesh: "trimesh.Trimesh") -> "trimesh.Trimesh":  # type: ignore[name-defined]
