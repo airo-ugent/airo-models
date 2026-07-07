@@ -32,19 +32,39 @@ os.environ.setdefault("PYOPENGL_PLATFORM", "egl")
 import airo_models  # noqa: E402
 
 
+def _bake_color(mesh: "trimesh.Trimesh") -> "trimesh.Trimesh":  # type: ignore[name-defined]
+    """Return a copy of *mesh* with the diffuse/PBR base color baked into vertex colors.
+
+    pyrender's MetallicRoughnessMaterial internally creates OpenGL textures even for
+    solid colors, which triggers a ctypes incompatibility with Python ≥ 3.14.  Baking
+    the color into vertex colors avoids any texture upload while still giving each part
+    its correct color.
+    """
+    import trimesh
+
+    m = mesh.copy()
+    color = np.array([180, 180, 180, 255], dtype=np.uint8)  # neutral gray fallback
+    v = mesh.visual
+    if hasattr(v, "material") and hasattr(v.material, "to_pbr"):
+        pbr = v.material.to_pbr()
+        c = getattr(pbr, "baseColorFactor", None)
+        if c is not None:
+            color = np.clip(np.array(c), 0, 255).astype(np.uint8)
+    n = len(m.vertices)
+    m.visual = trimesh.visual.ColorVisuals(mesh=m, vertex_colors=np.tile(color, (n, 1)))
+    return m
+
+
 def build_pyrender_scene(tm_scene: "trimesh.scene.Scene") -> "pyrender.Scene":  # type: ignore[name-defined]
     import pyrender
     import trimesh
 
-    scene = pyrender.Scene(bg_color=[0.95, 0.95, 0.95, 1.0], ambient_light=[0.4, 0.4, 0.4])
+    scene = pyrender.Scene(bg_color=[0.95, 0.95, 0.95, 1.0], ambient_light=[0.35, 0.35, 0.35])
     for name, mesh in tm_scene.geometry.items():
         if not isinstance(mesh, trimesh.Trimesh):
             continue
-        # Strip textures – avoids OpenGL texture-upload errors on headless drivers.
-        mesh = mesh.copy()
-        mesh.visual = trimesh.visual.ColorVisuals(mesh=mesh)
         try:
-            pr_mesh = pyrender.Mesh.from_trimesh(mesh, smooth=False)
+            pr_mesh = pyrender.Mesh.from_trimesh(_bake_color(mesh), smooth=False)
         except Exception:
             continue
         try:
@@ -55,13 +75,13 @@ def build_pyrender_scene(tm_scene: "trimesh.scene.Scene") -> "pyrender.Scene":  
     return scene
 
 
-def camera_pose(center: np.ndarray, cam_dist: float, elevation_deg: float = 25.0, azimuth_deg: float = -60.0) -> np.ndarray:
+def camera_pose(
+    center: np.ndarray, cam_dist: float, elevation_deg: float = 25.0, azimuth_deg: float = -60.0
+) -> np.ndarray:
     """Return a 4×4 camera pose (camera-to-world) looking at *center*."""
     theta = np.radians(elevation_deg)
     phi = np.radians(azimuth_deg)
-    cam_pos = center + cam_dist * np.array(
-        [np.cos(theta) * np.cos(phi), np.cos(theta) * np.sin(phi), np.sin(theta)]
-    )
+    cam_pos = center + cam_dist * np.array([np.cos(theta) * np.cos(phi), np.cos(theta) * np.sin(phi), np.sin(theta)])
     forward = center - cam_pos
     forward /= np.linalg.norm(forward)
     up = np.array([0.0, 0.0, 1.0])
@@ -98,6 +118,9 @@ def render_urdf(urdf_path: str, out_path: str, size: int = 400) -> bool:
     cam = camera_pose(center, cam_dist)
     pr_scene.add(pyrender.PerspectiveCamera(yfov=np.pi / 5), pose=cam)
     pr_scene.add(pyrender.DirectionalLight(color=np.ones(3), intensity=4.0), pose=cam)
+    # Softer fill light from the opposite side to reduce harsh shadows.
+    fill = camera_pose(center, cam_dist, elevation_deg=10.0, azimuth_deg=120.0)
+    pr_scene.add(pyrender.DirectionalLight(color=np.ones(3), intensity=1.5), pose=fill)
 
     renderer = pyrender.OffscreenRenderer(size, size)
     try:
