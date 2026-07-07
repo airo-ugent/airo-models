@@ -1,6 +1,5 @@
 import os
 
-
 AIRO_MODELS_DIR = os.path.dirname(__file__)
 
 MODEL_NAME_TO_URDF_PATH = {

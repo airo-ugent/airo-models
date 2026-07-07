@@ -18,7 +18,7 @@ We expect two frames:
 
 
 - A `base_link` frame that corresponds to the mechanical interface with the robot arm; this frame can be welded to the `tool0` frame of the robot arm to attach the gripper.
-Its origin 
+Its origin
 - A `TCP` frame at the end of the fingertip / working point used for manipulation. Z points outwards and X is closing direction of the fingers.
 
 
