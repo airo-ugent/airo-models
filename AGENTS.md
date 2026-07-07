@@ -30,9 +30,9 @@ The package exposes:
 - `test/` — pytest tests (`test_*.py`).
 - `scripts/` — developer utility scripts (not part of the installed package).
   - `visualize_urdf.py` — browser-based URDF viewer (viser); run
-    `python scripts/visualize_urdf.py <name|path> [--collision] [--watch]`.
-    Shows visual/collision geometry, per-link frames and joint sliders; `--watch`
-    live-reloads on file changes. Needs the `viz` extra
+    `python scripts/visualize_urdf.py <name|path> [--watch]`.
+    Shows visual and collision geometry by default, per-link frames and joint
+    sliders; `--watch` live-reloads on file changes. Needs the `viz` extra
     (`pip install airo-models[viz]`).
 - `notebooks/` — example notebooks (stripped with `nbstripout` on commit).
 - `environment.yaml` — conda environment used by CI.
@@ -60,6 +60,10 @@ Run these before finishing a change. Prefix with `uv run` if using uv.
 
 CI enforces all three (see `.github/workflows/`): pytest, mypy and pre-commit
 must pass.
+
+> **Before every commit:** run `uv run pre-commit run --all-files` and fix any
+> failures before committing. black, isort and autoflake rewrite files
+> automatically on first run — just stage and commit the changes.
 
 ## Conventions
 
