@@ -173,4 +173,16 @@
         <child link="left_magneto_finger"/>
         <origin xyz="0 0 0" rpy="0 0 3.14"/>
     </joint>
+
+    <!-- TCP at the fingertips' flat contact face (magneto_finger.obj's local z=0.057), at the
+    fingers' zero-joint-value ("fully open") mount position. The mounts are point-symmetric
+    (right: +0.0155,+0.01711; left: -0.0155,-0.01711) so each fingertip's local x/y offset
+    cancels exactly in the average regardless of gripper opening, so only the z (reach) term
+    survives: 0.0835 (finger mount height) plus 0.057 (fingertip local z-extent) = 0.1405. -->
+    <link name="tcp"/>
+    <joint name="base_link_gripper_to_tcp" type="fixed">
+        <parent link="base_link_gripper"/>
+        <child link="tcp"/>
+        <origin xyz="0 0 0.1405" rpy="0 0 0"/>
+    </joint>
 </robot>
