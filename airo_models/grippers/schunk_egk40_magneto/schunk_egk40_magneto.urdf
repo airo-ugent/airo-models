@@ -1,24 +1,25 @@
 <robot name="schunk_egk40_magneto">
-    <link name="base_link">
+    <link name="base_link"/>
+    <link name="adapter_plate">
         <visual>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <origin rpy="0 0 0" xyz="0 0 0.005"/>
             <geometry>
-                <box size="0.117 0.068 0.015"/>
+                <box size="0.117 0.068 0.01"/>
             </geometry>
             <material name="">
                 <color rgba="0.1 0.1 0.1 1"/>
             </material>
         </visual>
         <collision>
-            <origin rpy="0 0 0" xyz="0 0 0.0"/>
+            <origin rpy="0 0 0" xyz="0 0 0.005"/>
             <geometry>
-                <box size="0.117 0.068 0.015"/>
+                <box size="0.117 0.068 0.01"/>
             </geometry>
         </collision>
     </link>
     <link name="camera_mount_plate">
         <visual>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <origin rpy="0 0 0" xyz="0 0 0.00175"/>
             <geometry>
                 <box size="0.117 0.068 0.0035"/>
             </geometry>
@@ -27,7 +28,7 @@
             </material>
         </visual>
         <collision>
-            <origin rpy="0 0 0" xyz="0 0 0.0"/>
+            <origin rpy="0 0 0" xyz="0 0 0.00175"/>
             <geometry>
                 <box size="0.117 0.068 0.0035"/>
             </geometry>
@@ -122,9 +123,14 @@
         </collision>
     </link>
 
-    <joint name="base_link_to_camera_mount_plate" type="fixed">
+    <joint name="base_link_to_adapter_plate" type="fixed">
         <parent link="base_link"/>
+        <child link="adapter_plate"/>
+    </joint>
+    <joint name="adapter_plate_to_camera_mount_plate" type="fixed">
+        <parent link="adapter_plate"/>
         <child link="camera_mount_plate"/>
+        <origin xyz="0 0 0.01"/>
     </joint>
     <joint name="base_link_to_pcb_mount_plate" type="fixed">
         <parent link="base_link"/>
@@ -135,6 +141,7 @@
     <joint name="base_link_gripper_joint" type="fixed">
         <parent link="camera_mount_plate"/>
         <child link="base_link_gripper"/>
+        <origin xyz="0 0 0.0035"/>
     </joint>
 
     <link name="right_finger_mount"/>
